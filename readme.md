@@ -19,7 +19,7 @@ This project documents progress at the 42 School | Pool, one day at a time.
 
 2. Open `index.html` in your browser or use a live server to view the project.
 
-3. Edit the json file to add or modify days. Each day should have a title, date, and content.
+3. Edit the json file to add or modify days. Each day should have a title, and a list of exercises.
 
 4. Open a PR to add your day to the project.
 
