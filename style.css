@@ -1,0 +1,193 @@
+/* Dark grayscale theme */
+body {
+	font-family: Arial, sans-serif;
+	background: #181818;
+	color: #e0e0e0;
+	margin: 0;
+	padding: 0;
+}
+
+*,
+*:before,
+*:after {
+	outline: none;
+}
+
+.container {
+	max-width: 1000px;
+	margin: auto;
+	padding: 20px;
+}
+
+h1 {
+	text-align: center;
+	color: #f0f0f0;
+}
+
+.sub {
+	text-align: center;
+	margin-bottom: 40px;
+	font-size: 1.3rem;
+}
+
+nav#toc {
+	background: #1e1e1e;
+	padding: 15px 20px;
+	border: 1px solid #333;
+	border-radius: 8px;
+	margin-bottom: 30px;
+}
+
+nav#toc ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+nav#toc li {
+	margin: 4px 0;
+}
+
+nav#toc > ul > li {
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+nav#toc ul ul {
+	padding-left: 20px;
+	font-weight: normal;
+}
+
+nav#toc a {
+	color: #c0c0c0;
+	text-decoration: none;
+}
+
+nav#toc a:hover {
+	color: #fff;
+}
+
+section.day {
+	background: #1e1e1e;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 40px;
+	border: 1px solid #333;
+}
+
+.exercise {
+	margin-bottom: 30px;
+}
+
+.exercise:not(:first-child)::before {
+	content: '';
+	display: block;
+	height: 1px;
+	background: #333;
+	margin: 30px auto;
+}
+
+.exercise h3 {
+	margin-top: 0;
+	color: #ffffff;
+}
+
+pre code {
+	font-family: 'Courier New', monospace;
+	font-size: 14px;
+	display: block;
+	padding: 12px;
+	background: #2e2e2e;
+	border-radius: 5px;
+	overflow-x: auto;
+}
+
+/* Wrap for code blocks */
+.code-block {
+	position: relative;
+}
+
+/* Copy button styling */
+.copy-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: #444;
+	color: #eee;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	font-size: 0.8rem;
+	cursor: pointer;
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+}
+
+.copy-button:hover {
+	opacity: 1;
+}
+
+details {
+	margin-top: 10px;
+}
+
+summary {
+	font-weight: bold;
+	cursor: pointer;
+	color: #e0e0e0;
+}
+
+summary:hover,
+summary:focus {
+	text-decoration: underline;
+}
+
+.loading {
+	text-align: center;
+	display: block;
+}
+
+footer {
+	text-align: center;
+	color: #fff2;
+	margin-bottom: 2em;
+}
+
+footer a {
+	color: inherit;
+	text-decoration: none;
+}
+
+footer a:hover {
+	text-decoration: underline;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+	outline: 1px solid #fff;
+	outline-offset: 2px;
+}
+
+a:focus {
+	text-decoration: underline !important;
+}
+
+::selection {
+	background: #444;
+	color: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #555;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #888;
+}

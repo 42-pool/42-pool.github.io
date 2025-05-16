@@ -1,0 +1,128 @@
+{
+	"days": [
+		{
+			"day": 0,
+			"exercises": [
+				{
+					"title": "ft_putchar",
+					"description": "Write a function that displays a character on the standard output.\n\n**Function prototype:**\n```c\nvoid ft_putchar(char c);\n```\n**Constraints:**\nYou can only use `write` from <unistd.h>.",
+					"implementation": "void ft_putchar(char c) {\n    write(1, &c, 1);\n}",
+					"tests": "int main() {\n    ft_putchar('A');\n    ft_putchar('\\n');\n    return 0;\n}"
+				},
+				{
+					"title": "ft_print_alphabet",
+					"description": "Write a function that prints the alphabet in lowercase, followed by a newline.\n\n**Function prototype:**\n```c\nvoid ft_print_alphabet(void);\n```",
+					"implementation": "void ft_print_alphabet(void) {\n    char c = 'a';\n    while (c <= 'z') {\n        write(1, &c, 1);\n        c++;\n    }\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_print_alphabet();\n    return 0;\n}"
+				},
+				{
+					"title": "ft_print_reverse_alphabet",
+					"description": "Write a function that prints the alphabet in reverse lowercase order, followed by a newline.\n\n**Function prototype:**\n```c\nvoid ft_print_reverse_alphabet(void);\n```",
+					"implementation": "void ft_print_reverse_alphabet(void) {\n    char c = 'z';\n    while (c >= 'a') {\n        write(1, &c, 1);\n        c--;\n    }\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_print_reverse_alphabet();\n    return 0;\n}"
+				},
+				{
+					"title": "ft_print_numbers",
+					"description": "Write a function that prints all digits from 0 to 9.\n\n**Function prototype:**\n```c\nvoid ft_print_numbers(void);\n```",
+					"implementation": "void ft_print_numbers(void) {\n    char c = '0';\n    while (c <= '9') {\n        write(1, &c, 1);\n        c++;\n    }\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_print_numbers();\n    return 0;\n}"
+				},
+				{
+					"title": "ft_is_negative",
+					"description": "Write a function that displays 'N' if the number is negative and 'P' if positive or zero.\n\n**Function prototype:**\n```c\nvoid ft_is_negative(int n);\n```",
+					"implementation": "void ft_is_negative(int n) {\n    if (n < 0)\n        write(1, \"N\", 1);\n    else\n        write(1, \"P\", 1);\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_is_negative(5);\n    ft_is_negative(-3);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_print_comb",
+					"description": "Write a function that displays all different combinations of three digits in ascending order.\n\n**Function prototype:**\n```c\nvoid ft_print_comb(void);\n```",
+					"implementation": "void ft_print_comb(void) {\n    char a, b, c;\n    for (a = '0'; a <= '7'; a++) {\n        for (b = a + 1; b <= '8'; b++) {\n            for (c = b + 1; c <= '9'; c++) {\n                write(1, &a, 1);\n                write(1, &b, 1);\n                write(1, &c, 1);\n                if (a != '7')\n                    write(1, \", \", 2);\n            }\n        }\n    }\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_print_comb();\n    return 0;\n}"
+				},
+				{
+					"title": "ft_print_comb2",
+					"description": "Write a function that displays all combinations of two two-digit numbers.\n\n**Function prototype:**\n```c\nvoid ft_print_comb2(void);\n```",
+					"implementation": "void ft_print_comb2(void) {\n    int i, j;\n    char str[5];\n    for (i = 0; i <= 98; i++) {\n        for (j = i + 1; j <= 99; j++) {\n            str[0] = i / 10 + '0';\n            str[1] = i % 10 + '0';\n            str[2] = ' ';\n            str[3] = j / 10 + '0';\n            str[4] = j % 10 + '0';\n            write(1, str, 5);\n            if (i != 98)\n                write(1, \", \", 2);\n        }\n    }\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_print_comb2();\n    return 0;\n}"
+				},
+				{
+					"title": "ft_putnbr",
+					"description": "Write a function that prints an integer.\n\n**Function prototype:**\n```c\nvoid ft_putnbr(int nb);\n```",
+					"implementation": "void ft_putnbr(int nb) {\n    if (nb == -2147483648) {\n        write(1, \"-2147483648\", 11);\n        return;\n    }\n    if (nb < 0) {\n        write(1, \"-\", 1);\n        nb = -nb;\n    }\n    if (nb >= 10)\n        ft_putnbr(nb / 10);\n    char c = nb % 10 + '0';\n    write(1, &c, 1);\n}",
+					"tests": "int main() {\n    ft_putnbr(42);\n    write(1, \"\\n\", 1);\n    ft_putnbr(-123);\n    write(1, \"\\n\", 1);\n    ft_putnbr(0);\n    write(1, \"\\n\", 1);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_print_combn",
+					"description": "Write a function that displays all combinations of `n` different digits in ascending order.\n\n**Function prototype:**\n```c\nvoid ft_print_combn(int n);\n```",
+					"implementation": "void ft_print_combn(int n) {\n    if (n < 1 || n > 9) return;\n    int digits[10], i;\n    void print(int pos, int last) {\n        if (pos == n) {\n            for (i = 0; i < n; i++) {\n                char c = digits[i] + '0';\n                write(1, &c, 1);\n            }\n            if (digits[0] != 10 - n) write(1, \", \", 2);\n            return;\n        }\n        for (int d = last + 1; d <= 9; d++) {\n            digits[pos] = d;\n            print(pos + 1, d);\n        }\n    }\n    print(0, -1);\n    write(1, \"\\n\", 1);\n}",
+					"tests": "int main() {\n    ft_print_combn(2);\n    return 0;\n}"
+				}
+			]
+		},
+		{
+			"day": 1,
+			"exercises": [
+				{
+					"title": "ft_strcpy",
+					"description": "Reproduce the behavior of the function `strcpy`.\n\n**Function prototype:**\n```c\nchar *ft_strcpy(char *dest, char *src);\n```",
+					"implementation": "char *ft_strcpy(char *dest, char *src) {\n    int i = 0;\n    while (src[i]) {\n        dest[i] = src[i];\n        i++;\n    }\n    dest[i] = '\\0';\n    return dest;\n}",
+					"tests": "int main() {\n    char dest[100];\n    ft_strcpy(dest, \"Hello\");\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_strncpy",
+					"description": "Reproduce the behavior of the function `strncpy`.\n\n**Function prototype:**\n```c\nchar *ft_strncpy(char *dest, char *src, unsigned int n);\n```",
+					"implementation": "char *ft_strncpy(char *dest, char *src, unsigned int n) {\n    unsigned int i = 0;\n    while (i < n && src[i]) {\n        dest[i] = src[i];\n        i++;\n    }\n    while (i < n) {\n        dest[i++] = '\\0';\n    }\n    return dest;\n}",
+					"tests": "int main() {\n    char dest[20];\n    ft_strncpy(dest, \"42\", 5);\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_str_is_alpha",
+					"description": "Return 1 if the string contains only alphabetical characters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_alpha(char *str);\n```",
+					"implementation": "int ft_str_is_alpha(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (!(str[i] >= 'A' && str[i] <= 'Z') && !(str[i] >= 'a' && str[i] <= 'z'))\n            return 0;\n        i++;\n    }\n    return 1;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_alpha(\"Hello\")); // 1\n    printf(\"%d\\n\", ft_str_is_alpha(\"Hello123\")); // 0\n    return 0;\n}"
+				},
+				{
+					"title": "ft_str_is_numeric",
+					"description": "Return 1 if the string contains only numeric characters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_numeric(char *str);\n```",
+					"implementation": "int ft_str_is_numeric(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < '0' || str[i] > '9')\n            return 0;\n        i++;\n    }\n    return 1;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_numeric(\"12345\")); // 1\n    printf(\"%d\\n\", ft_str_is_numeric(\"123a45\")); // 0\n    return 0;\n}"
+				},
+				{
+					"title": "ft_str_is_lowercase",
+					"description": "Return 1 if the string contains only lowercase letters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_lowercase(char *str);\n```",
+					"implementation": "int ft_str_is_lowercase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < 'a' || str[i] > 'z')\n            return 0;\n        i++;\n    }\n    return 1;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_lowercase(\"lower\")); // 1\n    printf(\"%d\\n\", ft_str_is_lowercase(\"Lower\")); // 0\n    return 0;\n}"
+				},
+				{
+					"title": "ft_str_is_uppercase",
+					"description": "Return 1 if the string contains only uppercase letters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_uppercase(char *str);\n```",
+					"implementation": "int ft_str_is_uppercase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < 'A' || str[i] > 'Z')\n            return 0;\n        i++;\n    }\n    return 1;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_uppercase(\"HELLO\")); // 1\n    printf(\"%d\\n\", ft_str_is_uppercase(\"Hello\")); // 0\n    return 0;\n}"
+				},
+				{
+					"title": "ft_str_is_printable",
+					"description": "Return 1 if the string contains only printable characters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_printable(char *str);\n```",
+					"implementation": "int ft_str_is_printable(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < 32 || str[i] == 127)\n            return 0;\n        i++;\n    }\n    return 1;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_printable(\"Hello\\n\")); // 0\n    printf(\"%d\\n\", ft_str_is_printable(\"Hello\")); // 1\n    return 0;\n}"
+				},
+				{
+					"title": "ft_strupcase",
+					"description": "Transform all lowercase letters to uppercase in the string.\n\n**Function prototype:**\n```c\nchar *ft_strupcase(char *str);\n```",
+					"implementation": "char *ft_strupcase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] >= 'a' && str[i] <= 'z')\n            str[i] -= 32;\n        i++;\n    }\n    return str;\n}",
+					"tests": "int main() {\n    char s[] = \"Hello!\";\n    printf(\"%s\\n\", ft_strupcase(s)); // \"HELLO!\"\n    return 0;\n}"
+				},
+				{
+					"title": "ft_strlowcase",
+					"description": "Transform all uppercase letters to lowercase in the string.\n\n**Function prototype:**\n```c\nchar *ft_strlowcase(char *str);\n```",
+					"implementation": "char *ft_strlowcase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] >= 'A' && str[i] <= 'Z')\n            str[i] += 32;\n        i++;\n    }\n    return str;\n}",
+					"tests": "int main() {\n    char s[] = \"HELLO!\";\n    printf(\"%s\\n\", ft_strlowcase(s)); // \"hello!\"\n    return 0;\n}"
+				},
+				{
+					"title": "ft_strcapitalize",
+					"description": "Capitalize the first letter of each word and lowercase the others.\n\n**Function prototype:**\n```c\nchar *ft_strcapitalize(char *str);\n```",
+					"implementation": "char *ft_strcapitalize(char *str) {\n    int i = 0;\n    int new_word = 1;\n    while (str[i]) {\n        if ((str[i] >= 'a' && str[i] <= 'z') && new_word) {\n            str[i] -= 32;\n            new_word = 0;\n        } else if ((str[i] >= 'A' && str[i] <= 'Z') && !new_word) {\n            str[i] += 32;\n        } else if (!(str[i] >= '0' && str[i] <= '9') && !(str[i] >= 'A' && str[i] <= 'Z') && !(str[i] >= 'a' && str[i] <= 'z')) {\n            new_word = 1;\n        } else {\n            new_word = 0;\n        }\n        i++;\n    }\n    return str;\n}",
+					"tests": "int main() {\n    char s[] = \"hello, how ARE you? 42words forty-two; fifty+and+one\";\n    printf(\"%s\\n\", ft_strcapitalize(s));\n    return 0;\n}"
+				}
+			]
+		}
+	]
+}
