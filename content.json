@@ -7,55 +7,55 @@
 					"title": "ft_putchar",
 					"description": "Write a function that displays a character on the standard output.\n\n**Function prototype:**\n```c\nvoid ft_putchar(char c);\n```\n**Constraints:**\nYou can only use `write` from `<unistd.h>`.",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putchar(char c) {\n    write(1, &c, 1);\n}",
-					"tests": "#include <unistd.h>\n\nvoid ft_putchar(char c);\n\nint main() {\n    ft_putchar('A');\n    ft_putchar('\\n');\n    return 0;\n}"
+					"tests": "#include <unistd.h>\n\nvoid ft_putchar(char c);\n\nint main() {\n    ft_putchar('A');\n    ft_putchar('\\n');\n    return 0;\n    // Expected output: A\n}"
 				},
 				{
 					"title": "ft_print_alphabet",
 					"description": "Write a function that displays the alphabet in lowercase, on a single line.\n\n**Function prototype:**\n```c\nvoid ft_print_alphabet(void);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_print_alphabet(void) {\n    char c = 'a';\n    while (c <= 'z') {\n        write(1, &c, 1);\n        c++;\n    }\n}",
-					"tests": "int main() {\n    ft_print_alphabet();\n    write(1, \"\\n\", 1);\n    return 0;\n}"
+					"tests": "int main() {\n    ft_print_alphabet();\n    write(1, \"\\n\", 1);\n    return 0;\n    // Expected output: abcdefghijklmnopqrstuvwxyz\n}"
 				},
 				{
 					"title": "ft_print_reverse_alphabet",
 					"description": "Write a function that displays the alphabet in reverse order (from 'z' to 'a').\n\n**Function prototype:**\n```c\nvoid ft_print_reverse_alphabet(void);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_print_reverse_alphabet(void) {\n    char c = 'z';\n    while (c >= 'a') {\n        write(1, &c, 1);\n        c--;\n    }\n}",
-					"tests": "int main() {\n    ft_print_reverse_alphabet();\n    write(1, \"\\n\", 1);\n    return 0;\n}"
+					"tests": "int main() {\n    ft_print_reverse_alphabet();\n    write(1, \"\\n\", 1);\n    return 0;\n    // Expected output: zyxwvutsrqponmlkjihgfedcba\n}"
 				},
 				{
 					"title": "ft_print_numbers",
 					"description": "Write a function that displays all digits from 0 to 9.\n\n**Function prototype:**\n```c\nvoid ft_print_numbers(void);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_print_numbers(void) {\n    char c = '0';\n    while (c <= '9') {\n        write(1, &c, 1);\n        c++;\n    }\n}",
-					"tests": "int main() {\n    ft_print_numbers();\n    write(1, \"\\n\", 1);\n    return 0;\n}"
+					"tests": "int main() {\n    ft_print_numbers();\n    write(1, \"\\n\", 1);\n    return 0;\n    // Expected output: 0123456789\n}"
 				},
 				{
 					"title": "ft_is_negative",
 					"description": "Write a function that displays 'N' if the integer is negative and 'P' if positive or null.\n\n**Function prototype:**\n```c\nvoid ft_is_negative(int n);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_is_negative(int n) {\n    if (n < 0)\n        write(1, \"N\", 1);\n    else\n        write(1, \"P\", 1);\n}",
-					"tests": "int main() {\n    ft_is_negative(-1);\n    ft_is_negative(0);\n    ft_is_negative(1);\n    write(1, \"\\n\", 1);\n    return 0;\n}"
+					"tests": "int main() {\n    ft_is_negative(-1);\n    ft_is_negative(0);\n    ft_is_negative(1);\n    write(1, \"\\n\", 1);\n    return 0;\n    // Expected output: NPP\n}"
 				},
 				{
 					"title": "ft_print_comb",
 					"description": "Write a function that displays all different combinations of three digits (ascending).\n\n**Function prototype:**\n```c\nvoid ft_print_comb(void);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putchar(char c) {\n    write(1, &c, 1);\n}\n\nvoid ft_print_comb(void) {\n    for (char i = '0'; i <= '7'; i++) {\n        for (char j = i + 1; j <= '8'; j++) {\n            for (char k = j + 1; k <= '9'; k++) {\n                ft_putchar(i);\n                ft_putchar(j);\n                ft_putchar(k);\n                if (!(i == '7' && j == '8' && k == '9')) {\n                    ft_putchar(',');\n                    ft_putchar(' ');\n                }\n            }\n        }\n    }\n}",
-					"tests": "int main() {\n    ft_print_comb();\n    ft_putchar('\\n');\n    return 0;\n}"
+					"tests": "int main() {\n    ft_print_comb();\n    ft_putchar('\\n');\n    return 0;\n    // Expected output: 012, 013, 014, ..., 789\n}"
 				},
 				{
 					"title": "ft_print_comb2",
 					"description": "Write a function that displays all different combinations of two two-digit numbers (00 01 to 98 99).\n\n**Function prototype:**\n```c\nvoid ft_print_comb2(void);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putchar(char c) {\n    write(1, &c, 1);\n}\n\nvoid ft_putnbr2(int n) {\n    ft_putchar(n / 10 + '0');\n    ft_putchar(n % 10 + '0');\n}\n\nvoid ft_print_comb2(void) {\n    for (int i = 0; i <= 98; i++) {\n        for (int j = i + 1; j <= 99; j++) {\n            ft_putnbr2(i);\n            ft_putchar(' ');\n            ft_putnbr2(j);\n            if (!(i == 98 && j == 99)) {\n                ft_putchar(',');\n                ft_putchar(' ');\n            }\n        }\n    }\n}",
-					"tests": "int main() {\n    ft_print_comb2();\n    ft_putchar('\\n');\n    return 0;\n}"
+					"tests": "int main() {\n    ft_print_comb2();\n    ft_putchar('\\n');\n    return 0;\n    // Expected output: 00 01, 00 02, ..., 98 99\n}"
 				},
 				{
 					"title": "ft_putnbr",
 					"description": "Write a function that displays an integer on the standard output.\n\n**Function prototype:**\n```c\nvoid ft_putnbr(int nb);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putchar(char c) {\n    write(1, &c, 1);\n}\n\nvoid ft_putnbr(int nb) {\n    if (nb == -2147483648) {\n        write(1, \"-2147483648\", 11);\n        return;\n    }\n    if (nb < 0) {\n        ft_putchar('-');\n        nb = -nb;\n    }\n    if (nb >= 10)\n        ft_putnbr(nb / 10);\n    ft_putchar(nb % 10 + '0');\n}",
-					"tests": "int main() {\n    ft_putnbr(42);\n    ft_putchar('\\n');\n    ft_putnbr(-2147483648);\n    ft_putchar('\\n');\n    return 0;\n}"
+					"tests": "int main() {\n    ft_putnbr(42);\n    ft_putchar('\\n');\n    ft_putnbr(-2147483648);\n    ft_putchar('\\n');\n    return 0;\n    // Expected output:\n    // 42\n    // -2147483648\n}"
 				},
 				{
 					"title": "ft_print_combn",
 					"description": "Write a function that displays all combinations of `n` different digits in ascending order.\n\n**Function prototype:**\n```c\nvoid ft_print_combn(int n);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putchar(char c) {\n    write(1, &c, 1);\n}\n\nvoid print(int *a, int n) {\n    for (int i = 0; i < n; i++)\n        ft_putchar(a[i] + '0');\n}\n\nvoid ft_print_combn(int n) {\n    int a[10], i;\n    for (i = 0; i < n; i++)\n        a[i] = i;\n    while (1) {\n        print(a, n);\n        if (a[0] == 10 - n)\n            break;\n        ft_putchar(',');\n        ft_putchar(' ');\n        i = n - 1;\n        while (a[i] == 9 - (n - 1 - i))\n            i--;\n        a[i]++;\n        while (++i < n)\n            a[i] = a[i - 1] + 1;\n    }\n}",
-					"tests": "int main() {\n    ft_print_combn(2);\n    ft_putchar('\\n');\n    return 0;\n}"
+					"tests": "int main() {\n    ft_print_combn(2);\n    ft_putchar('\\n');\n    return 0;\n    // Expected output: 01, 02, 03, ..., 89\n}"
 				}
 			]
 		},
@@ -66,55 +66,55 @@
 					"title": "ft_ft",
 					"description": "Write a function that takes a pointer to int as a parameter and sets the value pointed to to 42.\n\n**Function prototype:**\n```c\nvoid ft_ft(int *nbr);\n```",
 					"implementation": "void ft_ft(int *nbr) {\n    *nbr = 42;\n}",
-					"tests": "int main() {\n    int a = 0;\n    ft_ft(&a);\n    printf(\"%d\\n\", a);\n    return 0;\n}"
+					"tests": "int main() {\n    int a = 0;\n    ft_ft(&a);\n    printf(\"%d\\n\", a);\n    return 0;\n    // Expected output: 42\n}"
 				},
 				{
 					"title": "ft_ultimate_ft",
 					"description": "Write a function that takes a pointer to a pointer to a pointer to a pointer to a pointer to a pointer to a pointer to a pointer to a pointer to an int, and sets the value pointed to to 42.\n\n**Function prototype:**\n```c\nvoid ft_ultimate_ft(int *********nbr);\n```",
 					"implementation": "void ft_ultimate_ft(int *********nbr) {\n    *********nbr = 42;\n}",
-					"tests": "int main() {\n    int a = 0;\n    int *p1 = &a;\n    int **p2 = &p1;\n    int ***p3 = &p2;\n    int ****p4 = &p3;\n    int *****p5 = &p4;\n    int ******p6 = &p5;\n    int *******p7 = &p6;\n    int ********p8 = &p7;\n    int *********p9 = &p8;\n    ft_ultimate_ft(p9);\n    printf(\"%d\\n\", a);\n    return 0;\n}"
+					"tests": "int main() {\n    int a = 0;\n    int *p1 = &a;\n    int **p2 = &p1;\n    int ***p3 = &p2;\n    int ****p4 = &p3;\n    int *****p5 = &p4;\n    int ******p6 = &p5;\n    int *******p7 = &p6;\n    int ********p8 = &p7;\n    int *********p9 = &p8;\n    ft_ultimate_ft(p9);\n    printf(\"%d\\n\", a);\n    return 0;\n    // Expected output: 42\n}"
 				},
 				{
 					"title": "ft_swap",
 					"description": "Write a function that swaps the value of two integers.\n\n**Function prototype:**\n```c\nvoid ft_swap(int *a, int *b);\n```",
 					"implementation": "void ft_swap(int *a, int *b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}",
-					"tests": "int main() {\n    int x = 1;\n    int y = 2;\n    ft_swap(&x, &y);\n    printf(\"x = %d, y = %d\\n\", x, y);\n    return 0;\n}"
+					"tests": "int main() {\n    int x = 1;\n    int y = 2;\n    ft_swap(&x, &y);\n    printf(\"x = %d, y = %d\\n\", x, y);\n    return 0;\n    // Expected output: x = 2, y = 1\n}"
 				},
 				{
 					"title": "ft_div_mod",
 					"description": "Write a function that divides parameters and stores the result in the int pointed to by `div`, and the remainder in the int pointed to by `mod`.\n\n**Function prototype:**\n```c\nvoid ft_div_mod(int a, int b, int *div, int *mod);\n```",
 					"implementation": "void ft_div_mod(int a, int b, int *div, int *mod) {\n    *div = a / b;\n    *mod = a % b;\n}",
-					"tests": "int main() {\n    int d, m;\n    ft_div_mod(10, 3, &d, &m);\n    printf(\"div = %d, mod = %d\\n\", d, m);\n    return 0;\n}"
+					"tests": "int main() {\n    int d, m;\n    ft_div_mod(10, 3, &d, &m);\n    printf(\"div = %d, mod = %d\\n\", d, m);\n    return 0;\n    // Expected output: div = 3, mod = 1\n}"
 				},
 				{
 					"title": "ft_ultimate_div_mod",
 					"description": "Write a function that divides the value in `a` by the value in `b`. Store the result in `a` and the remainder in `b`.\n\n**Function prototype:**\n```c\nvoid ft_ultimate_div_mod(int *a, int *b);\n```",
 					"implementation": "void ft_ultimate_div_mod(int *a, int *b) {\n    int div = *a / *b;\n    int mod = *a % *b;\n    *a = div;\n    *b = mod;\n}",
-					"tests": "int main() {\n    int x = 10, y = 3;\n    ft_ultimate_div_mod(&x, &y);\n    printf(\"a = %d, b = %d\\n\", x, y);\n    return 0;\n}"
+					"tests": "int main() {\n    int x = 10, y = 3;\n    ft_ultimate_div_mod(&x, &y);\n    printf(\"a = %d, b = %d\\n\", x, y);\n    return 0;\n    // Expected output: a = 3, b = 1\n}"
 				},
 				{
 					"title": "ft_putstr",
 					"description": "Write a function that displays a string of characters.\n\n**Function prototype:**\n```c\nvoid ft_putstr(char *str);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putstr(char *str) {\n    while (*str)\n        write(1, str++, 1);\n}",
-					"tests": "int main() {\n    ft_putstr(\"Hello, world!\\n\");\n    return 0;\n}"
+					"tests": "int main() {\n    ft_putstr(\"Hello, world!\\n\");\n    return 0;\n    // Expected output: Hello, world!\n}"
 				},
 				{
 					"title": "ft_strlen",
 					"description": "Write a function that counts and returns the number of characters in a string.\n\n**Function prototype:**\n```c\nint ft_strlen(char *str);\n```",
 					"implementation": "int ft_strlen(char *str) {\n    int len = 0;\n    while (str[len])\n        len++;\n    return len;\n}",
-					"tests": "int main() {\n    printf(\"Length: %d\\n\", ft_strlen(\"Hello\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"Length: %d\\n\", ft_strlen(\"Hello\"));\n    return 0;\n    // Expected output: Length: 5\n}"
 				},
 				{
 					"title": "ft_rev_int_tab",
 					"description": "Write a function that reverses the order of elements in an array of integers.\n\n**Function prototype:**\n```c\nvoid ft_rev_int_tab(int *tab, int size);\n```",
 					"implementation": "void ft_rev_int_tab(int *tab, int size) {\n    int temp, i = 0;\n    while (i < size / 2) {\n        temp = tab[i];\n        tab[i] = tab[size - 1 - i];\n        tab[size - 1 - i] = temp;\n        i++;\n    }\n}",
-					"tests": "int main() {\n    int arr[] = {1, 2, 3, 4, 5};\n    ft_rev_int_tab(arr, 5);\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+					"tests": "int main() {\n    int arr[] = {1, 2, 3, 4, 5};\n    ft_rev_int_tab(arr, 5);\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n    // Expected output: 5 4 3 2 1\n}"
 				},
 				{
 					"title": "ft_sort_int_tab",
 					"description": "Write a function that sorts an array of integers in ascending order.\n\n**Function prototype:**\n```c\nvoid ft_sort_int_tab(int *tab, int size);\n```",
 					"implementation": "void ft_sort_int_tab(int *tab, int size) {\n    int i, j, temp;\n    for (i = 0; i < size - 1; i++) {\n        for (j = i + 1; j < size; j++) {\n            if (tab[i] > tab[j]) {\n                temp = tab[i];\n                tab[i] = tab[j];\n                tab[j] = temp;\n            }\n        }\n    }\n}",
-					"tests": "int main() {\n    int arr[] = {5, 3, 1, 4, 2};\n    ft_sort_int_tab(arr, 5);\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n}"
+					"tests": "int main() {\n    int arr[] = {5, 3, 1, 4, 2};\n    ft_sort_int_tab(arr, 5);\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    return 0;\n    // Expected output: 1 2 3 4 5\n}"
 				}
 			]
 		},
@@ -125,79 +125,79 @@
 					"title": "ft_strcpy",
 					"description": "Reproduce the behavior of the function `strcpy`.\n\n**Function prototype:**\n```c\nchar *ft_strcpy(char *dest, char *src);\n```",
 					"implementation": "char *ft_strcpy(char *dest, char *src) {\n    int i = 0;\n    while (src[i]) {\n        dest[i] = src[i];\n        i++;\n    }\n    dest[i] = '\\0';\n    return dest;\n}",
-					"tests": "int main() {\n    char src[] = \"Hello\";\n    char dest[10];\n    ft_strcpy(dest, src);\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+					"tests": "int main() {\n    char src[] = \"Hello\";\n    char dest[10];\n    ft_strcpy(dest, src);\n    printf(\"%s\\n\", dest);\n    return 0;\n    // Expected output: Hello\n}"
 				},
 				{
 					"title": "ft_strncpy",
 					"description": "Reproduce the behavior of the function `strncpy`.\n\n**Function prototype:**\n```c\nchar *ft_strncpy(char *dest, char *src, unsigned int n);\n```",
 					"implementation": "char *ft_strncpy(char *dest, char *src, unsigned int n) {\n    unsigned int i = 0;\n    while (i < n && src[i]) {\n        dest[i] = src[i];\n        i++;\n    }\n    while (i < n) {\n        dest[i] = '\\0';\n        i++;\n    }\n    return dest;\n}",
-					"tests": "int main() {\n    char src[] = \"42\";\n    char dest[5];\n    ft_strncpy(dest, src, 5);\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+					"tests": "int main() {\n    char src[] = \"42\";\n    char dest[5];\n    ft_strncpy(dest, src, 5);\n    printf(\"%s\\n\", dest);\n    return 0;\n    // Expected output: 42\n}"
 				},
 				{
 					"title": "ft_str_is_alpha",
 					"description": "Returns 1 if the string contains only alphabetical characters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_alpha(char *str);\n```",
 					"implementation": "int ft_str_is_alpha(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if ((str[i] < 'A' || str[i] > 'Z') && (str[i] < 'a' || str[i] > 'z'))\n            return 0;\n        i++;\n    }\n    return 1;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_alpha(\"abcXYZ\"));\n    printf(\"%d\\n\", ft_str_is_alpha(\"abc123\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_alpha(\"abcXYZ\"));\n    printf(\"%d\\n\", ft_str_is_alpha(\"abc123\"));\n    return 0;\n    // Expected output:\n    // 1\n    // 0\n}"
 				},
 				{
 					"title": "ft_str_is_numeric",
 					"description": "Returns 1 if the string contains only digits, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_numeric(char *str);\n```",
 					"implementation": "int ft_str_is_numeric(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < '0' || str[i] > '9')\n            return 0;\n        i++;\n    }\n    return 1;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_numeric(\"12345\"));\n    printf(\"%d\\n\", ft_str_is_numeric(\"42abc\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_numeric(\"12345\"));\n    printf(\"%d\\n\", ft_str_is_numeric(\"42abc\"));\n    return 0;\n    // Expected output:\n    // 1\n    // 0\n}"
 				},
 				{
 					"title": "ft_str_is_lowercase",
 					"description": "Returns 1 if the string contains only lowercase letters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_lowercase(char *str);\n```",
 					"implementation": "int ft_str_is_lowercase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < 'a' || str[i] > 'z')\n            return 0;\n        i++;\n    }\n    return 1;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_lowercase(\"abc\"));\n    printf(\"%d\\n\", ft_str_is_lowercase(\"aBc\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_lowercase(\"abc\"));\n    printf(\"%d\\n\", ft_str_is_lowercase(\"aBc\"));\n    return 0;\n    // Expected output:\n    // 1\n    // 0\n}"
 				},
 				{
 					"title": "ft_str_is_uppercase",
 					"description": "Returns 1 if the string contains only uppercase letters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_uppercase(char *str);\n```",
 					"implementation": "int ft_str_is_uppercase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < 'A' || str[i] > 'Z')\n            return 0;\n        i++;\n    }\n    return 1;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_uppercase(\"ABC\"));\n    printf(\"%d\\n\", ft_str_is_uppercase(\"AbC\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_uppercase(\"ABC\"));\n    printf(\"%d\\n\", ft_str_is_uppercase(\"AbC\"));\n    return 0;\n    // Expected output:\n    // 1\n    // 0\n}"
 				},
 				{
 					"title": "ft_str_is_printable",
 					"description": "Returns 1 if the string contains only printable characters, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_str_is_printable(char *str);\n```",
 					"implementation": "int ft_str_is_printable(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] < 32 || str[i] == 127)\n            return 0;\n        i++;\n    }\n    return 1;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_printable(\"Hello\\n\"));\n    printf(\"%d\\n\", ft_str_is_printable(\"Hello\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_str_is_printable(\"Hello\\n\"));\n    printf(\"%d\\n\", ft_str_is_printable(\"Hello\"));\n    return 0;\n    // Expected output:\n    // 0\n    // 1\n}"
 				},
 				{
 					"title": "ft_strupcase",
 					"description": "Converts all lowercase letters of a string to uppercase.\n\n**Function prototype:**\n```c\nchar *ft_strupcase(char *str);\n```",
 					"implementation": "char *ft_strupcase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] >= 'a' && str[i] <= 'z')\n            str[i] -= 32;\n        i++;\n    }\n    return str;\n}",
-					"tests": "int main() {\n    char str[] = \"abcDEF\";\n    printf(\"%s\\n\", ft_strupcase(str));\n    return 0;\n}"
+					"tests": "int main() {\n    char str[] = \"abcDEF\";\n    printf(\"%s\\n\", ft_strupcase(str));\n    return 0;\n    // Expected output: ABCDEF\n}"
 				},
 				{
 					"title": "ft_strlowcase",
 					"description": "Converts all uppercase letters of a string to lowercase.\n\n**Function prototype:**\n```c\nchar *ft_strlowcase(char *str);\n```",
 					"implementation": "char *ft_strlowcase(char *str) {\n    int i = 0;\n    while (str[i]) {\n        if (str[i] >= 'A' && str[i] <= 'Z')\n            str[i] += 32;\n        i++;\n    }\n    return str;\n}",
-					"tests": "int main() {\n    char str[] = \"ABCdef\";\n    printf(\"%s\\n\", ft_strlowcase(str));\n    return 0;\n}"
+					"tests": "int main() {\n    char str[] = \"ABCdef\";\n    printf(\"%s\\n\", ft_strlowcase(str));\n    return 0;\n    // Expected output: abcdef\n}"
 				},
 				{
 					"title": "ft_strcapitalize",
 					"description": "Capitalizes the first letter of each word in a string.\n\n**Function prototype:**\n```c\nchar *ft_strcapitalize(char *str);\n```",
 					"implementation": "char *ft_strcapitalize(char *str) {\n    int i = 0;\n    int new_word = 1;\n    while (str[i]) {\n        if ((str[i] >= 'a' && str[i] <= 'z') && new_word) {\n            str[i] -= 32;\n            new_word = 0;\n        } else if ((str[i] >= 'A' && str[i] <= 'Z') && !new_word) {\n            str[i] += 32;\n        } else if (!(str[i] >= '0' && str[i] <= '9') && !(str[i] >= 'A' && str[i] <= 'Z') && !(str[i] >= 'a' && str[i] <= 'z')) {\n            new_word = 1;\n        } else {\n            new_word = 0;\n        }\n        i++;\n    }\n    return str;\n}",
-					"tests": "int main() {\n    char str[] = \"hello, world! 42school is GREAT\";\n    printf(\"%s\\n\", ft_strcapitalize(str));\n    return 0;\n}"
+					"tests": "int main() {\n    char str[] = \"hello, world! 42school is GREAT\";\n    printf(\"%s\\n\", ft_strcapitalize(str));\n    return 0;\n    // Expected output: Hello, World! 42school Is Great\n}"
 				},
 				{
 					"title": "ft_strlcpy",
 					"description": "Reproduce the behavior of the function `strlcpy`.\n\n**Function prototype:**\n```c\nunsigned int ft_strlcpy(char *dest, char *src, unsigned int size);\n```",
 					"implementation": "#include <stddef.h>\n\nunsigned int ft_strlcpy(char *dest, char *src, unsigned int size) {\n    unsigned int i = 0;\n    while (src[i] && i + 1 < size) {\n        dest[i] = src[i];\n        i++;\n    }\n    if (size > 0)\n        dest[i] = '\\0';\n    i = 0;\n    while (src[i]) i++;\n    return i;\n}",
-					"tests": "int main() {\n    char src[] = \"Hello\";\n    char dest[10];\n    printf(\"%u\\n\", ft_strlcpy(dest, src, 10));\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+					"tests": "int main() {\n    char src[] = \"Hello\";\n    char dest[10];\n    printf(\"%u\\n\", ft_strlcpy(dest, src, 10));\n    printf(\"%s\\n\", dest);\n    return 0;\n    // Expected output:\n    // 5\n    // Hello\n}"
 				},
 				{
 					"title": "ft_putstr_non_printable",
 					"description": "Displays a string, replacing non-printable characters with backslash followed by two hex digits.\n\n**Function prototype:**\n```c\nvoid ft_putstr_non_printable(char *str);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid ft_putchar(char c) {\n    write(1, &c, 1);\n}\n\nvoid print_hex(unsigned char c) {\n    char *hex = \"0123456789abcdef\";\n    ft_putchar(hex[c / 16]);\n    ft_putchar(hex[c % 16]);\n}\n\nvoid ft_putstr_non_printable(char *str) {\n    while (*str) {\n        if (*str < 32 || *str == 127) {\n            ft_putchar('\\');\n            print_hex((unsigned char)*str);\n        } else {\n            ft_putchar(*str);\n        }\n        str++;\n    }\n}",
-					"tests": "int main() {\n    ft_putstr_non_printable(\"Coucou\\ntu vas bien ?\");\n    return 0;\n}"
+					"tests": "int main() {\n    ft_putstr_non_printable(\"Coucou\\ntu vas bien ?\");\n    return 0;\n    // Expected output: Coucou\\0atu vas bien ?\n}"
 				},
 				{
 					"title": "ft_print_memory",
 					"description": "Displays the memory content of a given address in hexadecimal and ASCII format.\n\n**Function prototype:**\n```c\nvoid *ft_print_memory(void *addr, unsigned int size);\n```",
 					"implementation": "#include <unistd.h>\n\nvoid print_hex(unsigned char c)\n{\n    char *hex = \"0123456789abcdef\";\n    write(1, &hex[c / 16], 1);\n    write(1, &hex[c % 16], 1);\n}\n\nvoid print_address(unsigned long addr)\n{\n    int i;\n    char *hex = \"0123456789abcdef\";\n    char buffer[16];\n\n    for (i = 15; i >= 0; --i)\n    {\n        buffer[i] = hex[addr % 16];\n        addr /= 16;\n    }\n    write(1, buffer, 16);\n}\n\nvoid print_ascii(unsigned char *str, int size)\n{\n    for (int i = 0; i < size; ++i)\n    {\n        if (str[i] >= 32 && str[i] <= 126)\n            write(1, &str[i], 1);\n        else\n            write(1, \".\", 1);\n    }\n}\n\nvoid *ft_print_memory(void *addr, unsigned int size)\n{\n    unsigned char *ptr = (unsigned char *)addr;\n    unsigned int i = 0;\n\n    while (i < size)\n    {\n        print_address((unsigned long)(ptr + i));\n        write(1, \": \", 2);\n\n        for (unsigned int j = 0; j < 16; ++j)\n        {\n            if (i + j < size)\n                print_hex(ptr[i + j]);\n            else\n                write(1, \"  \", 2);\n\n            if (j % 2)\n                write(1, \" \", 1);\n        }\n\n        print_ascii(ptr + i, (size - i < 16) ? size - i : 16);\n        write(1, \"\\n\", 1);\n        i += 16;\n    }\n    return addr;\n}",
-					"tests": "int main() {\n    char str[] = \"Hello, memory viewer!\\nLet's test this function.\";\n    ft_print_memory(str, sizeof(str));\n    return 0;\n}"
+					"tests": "int main() {\n    char str[] = \"Hello, memory viewer!\\nLet's test this function.\";\n    ft_print_memory(str, sizeof(str));\n    return 0;\n    // Expected output: formatted memory dump\n}"
 				}
 			]
 		},
@@ -208,37 +208,37 @@
 					"title": "ft_strcmp",
 					"description": "Reproduce the behavior of the function `strcmp`.\n\n**Function prototype:**\n```c\nint ft_strcmp(char *s1, char *s2);\n```",
 					"implementation": "int ft_strcmp(char *s1, char *s2) {\n    while (*s1 && (*s1 == *s2)) {\n        s1++;\n        s2++;\n    }\n    return *(unsigned char *)s1 - *(unsigned char *)s2;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_strcmp(\"abc\", \"abc\"));\n    printf(\"%d\\n\", ft_strcmp(\"abc\", \"abd\"));\n    printf(\"%d\\n\", ft_strcmp(\"abd\", \"abc\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_strcmp(\"abc\", \"abc\"));\n    printf(\"%d\\n\", ft_strcmp(\"abc\", \"abd\"));\n    printf(\"%d\\n\", ft_strcmp(\"abd\", \"abc\"));\n    return 0;\n    // Expected output:\n    // 0\n    // -1\n    // 1\n}"
 				},
 				{
 					"title": "ft_strncmp",
 					"description": "Reproduce the behavior of the function `strncmp`.\n\n**Function prototype:**\n```c\nint ft_strncmp(char *s1, char *s2, unsigned int n);\n```",
 					"implementation": "int ft_strncmp(char *s1, char *s2, unsigned int n) {\n    unsigned int i = 0;\n    while (i < n && s1[i] && s1[i] == s2[i]) {\n        i++;\n    }\n    if (i == n) return 0;\n    return (unsigned char)s1[i] - (unsigned char)s2[i];\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_strncmp(\"abc\", \"abd\", 2));\n    printf(\"%d\\n\", ft_strncmp(\"abc\", \"abd\", 3));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_strncmp(\"abc\", \"abd\", 2));\n    printf(\"%d\\n\", ft_strncmp(\"abc\", \"abd\", 3));\n    return 0;\n    // Expected output:\n    // 0\n    // -1\n}"
 				},
 				{
 					"title": "ft_strcat",
 					"description": "Reproduce the behavior of the function `strcat`.\n\n**Function prototype:**\n```c\nchar *ft_strcat(char *dest, char *src);\n```",
 					"implementation": "char *ft_strcat(char *dest, char *src) {\n    int i = 0, j = 0;\n    while (dest[i]) i++;\n    while (src[j]) {\n        dest[i + j] = src[j];\n        j++;\n    }\n    dest[i + j] = '\\0';\n    return dest;\n}",
-					"tests": "int main() {\n    char dest[20] = \"Hello \";\n    char src[] = \"World!\";\n    ft_strcat(dest, src);\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+					"tests": "int main() {\n    char dest[20] = \"Hello \";\n    char src[] = \"World!\";\n    ft_strcat(dest, src);\n    printf(\"%s\\n\", dest);\n    return 0;\n    // Expected output: Hello World!\n}"
 				},
 				{
 					"title": "ft_strncat",
 					"description": "Reproduce the behavior of the function `strncat`.\n\n**Function prototype:**\n```c\nchar *ft_strncat(char *dest, char *src, unsigned int nb);\n```",
 					"implementation": "char *ft_strncat(char *dest, char *src, unsigned int nb) {\n    unsigned int i = 0;\n    int j = 0;\n    while (dest[j]) j++;\n    while (i < nb && src[i]) {\n        dest[j + i] = src[i];\n        i++;\n    }\n    dest[j + i] = '\\0';\n    return dest;\n}",
-					"tests": "int main() {\n    char dest[20] = \"Hello \";\n    char src[] = \"World!\";\n    ft_strncat(dest, src, 3);\n    printf(\"%s\\n\", dest);\n    return 0;\n}"
+					"tests": "int main() {\n    char dest[20] = \"Hello \";\n    char src[] = \"World!\";\n    ft_strncat(dest, src, 3);\n    printf(\"%s\\n\", dest);\n    return 0;\n    // Expected output: Hello Wor\n}"
 				},
 				{
 					"title": "ft_strstr",
 					"description": "Reproduce the behavior of the function `strstr`.\n\n**Function prototype:**\n```c\nchar *ft_strstr(char *str, char *to_find);\n```",
 					"implementation": "char *ft_strstr(char *str, char *to_find) {\n    int i, j;\n    if (!*to_find) return str;\n    for (i = 0; str[i]; i++) {\n        for (j = 0; to_find[j] && str[i + j] == to_find[j]; j++);\n        if (!to_find[j]) return &str[i];\n    }\n    return 0;\n}",
-					"tests": "int main() {\n    char str[] = \"Hello World\";\n    printf(\"%s\\n\", ft_strstr(str, \"World\"));\n    printf(\"%s\\n\", ft_strstr(str, \"42\"));\n    return 0;\n}"
+					"tests": "int main() {\n    char str[] = \"Hello World\";\n    printf(\"%s\\n\", ft_strstr(str, \"World\"));\n    printf(\"%s\\n\", ft_strstr(str, \"42\"));\n    return 0;\n    // Expected output:\n    // World\n    // (null)\n}"
 				},
 				{
 					"title": "ft_strlcat",
 					"description": "Reproduce the behavior of the function `strlcat`.\n\n**Function prototype:**\n```c\nunsigned int ft_strlcat(char *dest, char *src, unsigned int size);\n```",
 					"implementation": "#include <stddef.h>\n\nunsigned int ft_strlcat(char *dest, char *src, unsigned int size) {\n    unsigned int i = 0;\n    unsigned int j = 0;\n    while (i < size && dest[i]) i++;\n    while ((i + j + 1) < size && src[j]) {\n        dest[i + j] = src[j];\n        j++;\n    }\n    if (i < size) dest[i + j] = '\\0';\n    while (src[j]) j++;\n    return i + j;\n}",
-					"tests": "int main() {\n    char dest[20] = \"Hello \";\n    char src[] = \"World!\";\n    unsigned int len = ft_strlcat(dest, src, 20);\n    printf(\"%s\\n\", dest);\n    printf(\"Length: %u\\n\", len);\n    return 0;\n}"
+					"tests": "int main() {\n    char dest[20] = \"Hello \";\n    char src[] = \"World!\";\n    unsigned int len = ft_strlcat(dest, src, 20);\n    printf(\"%s\\n\", dest);\n    printf(\"Length: %u\\n\", len);\n    return 0;\n    // Expected output:\n    // Hello World!\n    // Length: 12\n}"
 				}
 			]
 		},
@@ -249,19 +249,19 @@
 					"title": "ft_atoi",
 					"description": "Reproduce the behavior of the function `atoi`.\n\n**Function prototype:**\n```c\nint ft_atoi(char *str);\n```",
 					"implementation": "int ft_atoi(char *str) {\n    int i = 0;\n    int sign = 1;\n    int result = 0;\n\n    while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))\n        i++;\n\n    while (str[i] == '+' || str[i] == '-') {\n        if (str[i] == '-')\n            sign *= -1;\n        i++;\n    }\n\n    while (str[i] >= '0' && str[i] <= '9') {\n        result = result * 10 + (str[i] - '0');\n        i++;\n    }\n\n    return result * sign;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_atoi(\"   ---+--+1234ab567\"));\n    printf(\"%d\\n\", ft_atoi(\"42\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_atoi(\"   ---+--+1234ab567\"));\n    printf(\"%d\\n\", ft_atoi(\"42\"));\n    return 0;\n    // Expected output:\n    // -1234\n    // 42\n}"
 				},
 				{
 					"title": "ft_putnbr_base",
 					"description": "Display a number in a given base.\n\n**Function prototype:**\n```c\nvoid ft_putnbr_base(int nbr, char *base);\n```",
 					"implementation": "#include <unistd.h>\n\nint ft_strlen(char *str) {\n    int i = 0;\n    while (str[i]) i++;\n    return i;\n}\n\nint is_valid_base(char *base) {\n    int i, j;\n    int len = ft_strlen(base);\n    if (len < 2) return 0;\n    for (i = 0; i < len; i++) {\n        if (base[i] == '+' || base[i] == '-' || base[i] <= 32 || base[i] > 126)\n            return 0;\n        for (j = i + 1; j < len; j++) {\n            if (base[i] == base[j]) return 0;\n        }\n    }\n    return 1;\n}\n\nvoid ft_putnbr_base(int nbr, char *base) {\n    long nb = nbr;\n    int len = ft_strlen(base);\n    if (!is_valid_base(base)) return;\n    if (nb < 0) {\n        write(1, \"-\", 1);\n        nb = -nb;\n    }\n    if (nb >= len)\n        ft_putnbr_base(nb / len, base);\n    write(1, &base[nb % len], 1);\n}",
-					"tests": "int main() {\n    ft_putnbr_base(42, \"0123456789ABCDEF\"); write(1, \"\\n\", 1);\n    ft_putnbr_base(-2147483648, \"01\"); write(1, \"\\n\", 1);\n    return 0;\n}"
+					"tests": "int main() {\n    ft_putnbr_base(42, \"0123456789ABCDEF\"); write(1, \"\\n\", 1);\n    ft_putnbr_base(-2147483648, \"01\"); write(1, \"\\n\", 1);\n    return 0;\n    // Expected output:\n    // 2A\n    // -10000000000000000000000000000000\n}"
 				},
 				{
 					"title": "ft_atoi_base",
 					"description": "Reproduce the behavior of `atoi`, but with a given base.\n\n**Function prototype:**\n```c\nint ft_atoi_base(char *str, char *base);\n```",
 					"implementation": "int ft_strlen(char *str) {\n    int i = 0;\n    while (str[i]) i++;\n    return i;\n}\n\nint is_valid_base(char *base) {\n    int i, j;\n    int len = ft_strlen(base);\n    if (len < 2) return 0;\n    for (i = 0; i < len; i++) {\n        if (base[i] == '+' || base[i] == '-' || base[i] <= 32 || base[i] > 126)\n            return 0;\n        for (j = i + 1; j < len; j++) {\n            if (base[i] == base[j]) return 0;\n        }\n    }\n    return 1;\n}\n\nint base_index(char c, char *base) {\n    int i = 0;\n    while (base[i]) {\n        if (base[i] == c) return i;\n        i++;\n    }\n    return -1;\n}\n\nint ft_atoi_base(char *str, char *base) {\n    int i = 0, sign = 1, result = 0;\n    int len;\n    if (!is_valid_base(base)) return 0;\n    len = ft_strlen(base);\n    while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) i++;\n    while (str[i] == '+' || str[i] == '-') {\n        if (str[i] == '-') sign *= -1;\n        i++;\n    }\n    int index;\n    while ((index = base_index(str[i], base)) != -1) {\n        result = result * len + index;\n        i++;\n    }\n    return result * sign;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_atoi_base(\"101010\", \"01\"));\n    printf(\"%d\\n\", ft_atoi_base(\"2A\", \"0123456789ABCDEF\"));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_atoi_base(\"101010\", \"01\"));\n    printf(\"%d\\n\", ft_atoi_base(\"2A\", \"0123456789ABCDEF\"));\n    return 0;\n    // Expected output:\n    // 42\n    // 42\n}"
 				}
 			]
 		},
@@ -272,43 +272,43 @@
 					"title": "ft_iterative_factorial",
 					"description": "Returns the factorial of a number using an iterative method.\n\n**Function prototype:**\n```c\nint ft_iterative_factorial(int nb);\n```",
 					"implementation": "int ft_iterative_factorial(int nb) {\n    int result = 1;\n    if (nb < 0) return 0;\n    while (nb > 1) {\n        result *= nb;\n        nb--;\n    }\n    return result;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_iterative_factorial(5));\n    printf(\"%d\\n\", ft_iterative_factorial(0));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_iterative_factorial(5));\n    printf(\"%d\\n\", ft_iterative_factorial(0));\n    return 0;\n    // Expected output:\n    // 120\n    // 1\n}"
 				},
 				{
 					"title": "ft_recursive_factorial",
 					"description": "Returns the factorial of a number using recursion.\n\n**Function prototype:**\n```c\nint ft_recursive_factorial(int nb);\n```",
 					"implementation": "int ft_recursive_factorial(int nb) {\n    if (nb < 0) return 0;\n    if (nb == 0) return 1;\n    return nb * ft_recursive_factorial(nb - 1);\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_recursive_factorial(5));\n    printf(\"%d\\n\", ft_recursive_factorial(0));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_recursive_factorial(5));\n    printf(\"%d\\n\", ft_recursive_factorial(0));\n    return 0;\n    // Expected output:\n    // 120\n    // 1\n}"
 				},
 				{
 					"title": "ft_iterative_power",
 					"description": "Returns the result of a number raised to a power using an iterative method.\n\n**Function prototype:**\n```c\nint ft_iterative_power(int nb, int power);\n```",
 					"implementation": "int ft_iterative_power(int nb, int power) {\n    int result = 1;\n    if (power < 0) return 0;\n    while (power > 0) {\n        result *= nb;\n        power--;\n    }\n    return result;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_iterative_power(2, 3));\n    printf(\"%d\\n\", ft_iterative_power(5, 0));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_iterative_power(2, 3));\n    printf(\"%d\\n\", ft_iterative_power(5, 0));\n    return 0;\n    // Expected output:\n    // 8\n    // 1\n}"
 				},
 				{
 					"title": "ft_recursive_power",
 					"description": "Returns the result of a number raised to a power using recursion.\n\n**Function prototype:**\n```c\nint ft_recursive_power(int nb, int power);\n```",
 					"implementation": "int ft_recursive_power(int nb, int power) {\n    if (power < 0) return 0;\n    if (power == 0) return 1;\n    return nb * ft_recursive_power(nb, power - 1);\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_recursive_power(2, 3));\n    printf(\"%d\\n\", ft_recursive_power(5, 0));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_recursive_power(2, 3));\n    printf(\"%d\\n\", ft_recursive_power(5, 0));\n    return 0;\n    // Expected output:\n    // 8\n    // 1\n}"
 				},
 				{
 					"title": "ft_fibonacci",
 					"description": "Returns the nth Fibonacci number.\n\n**Function prototype:**\n```c\nint ft_fibonacci(int index);\n```",
 					"implementation": "int ft_fibonacci(int index) {\n    if (index < 0) return -1;\n    if (index == 0) return 0;\n    if (index == 1) return 1;\n    return ft_fibonacci(index - 1) + ft_fibonacci(index - 2);\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_fibonacci(7));\n    printf(\"%d\\n\", ft_fibonacci(0));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_fibonacci(7));\n    printf(\"%d\\n\", ft_fibonacci(0));\n    return 0;\n    // Expected output:\n    // 13\n    // 0\n}"
 				},
 				{
 					"title": "ft_sqrt",
 					"description": "Returns the square root of a number if it is a perfect square, otherwise returns 0.\n\n**Function prototype:**\n```c\nint ft_sqrt(int nb);\n```",
 					"implementation": "int ft_sqrt(int nb) {\n    int i = 1;\n    if (nb <= 0) return 0;\n    while (i * i <= nb) {\n        if (i * i == nb) return i;\n        if (i >= 46341) break;\n        i++;\n    }\n    return 0;\n}",
-					"tests": "int main() {\n    printf(\"%d\\n\", ft_sqrt(25));\n    printf(\"%d\\n\", ft_sqrt(26));\n    return 0;\n}"
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_sqrt(25));\n    printf(\"%d\\n\", ft_sqrt(26));\n    return 0;\n    // Expected output:\n    // 5\n    // 0\n}"
 				},
 				{
 					"title": "ft_ten_queens_puzzle",
 					"description": "Write a function that displays all the possible positions of 10 queens on a 10×10 chessboard so that no two queens threaten each other. A solution is displayed as a sequence of 10 digits followed by a newline, where each digit represents the row position of a queen in each column (from column 0 to column 9).\n\n**Function prototype:**\n```c\nint ft_ten_queens_puzzle(void);\n```\n\nThe function should return the total number of solutions found.",
 					"implementation": "#include <unistd.h>\n\nlong g_answers[] = {\n    257948136,\n    258693147,\n    258693174,\n    286931475,\n    358297146,\n    369184275,\n    369281475,\n    369581427,\n    369714258,\n    369724815,\n    369741825,\n    384792516,\n    386192574,\n    386925147,\n    396824175,\n    461973825,\n    469318257,\n    471692853,\n    479261358,\n    479631852,\n    495813627,\n    536928147,\n    536971428,\n    538629147,\n    539682417,\n    571682493,\n    572681493,\n    574182963,\n    579382461,\n    582731946,\n    582963147,\n    584973162,\n    586137942,\n    592683147,\n    615793824,\n    635819427,\n    639714258,\n    641792853,\n    647185293,\n    681592473,\n    681742953,\n    682713594,\n    685297413,\n    695184273,\n    716824935,\n    716924835,\n    718529364,\n    736814952,\n    736815924,\n    738629514,\n    741829635,\n    751693842,\n    751863924,\n    752813964,\n    752814936,\n    758293641,\n    796318524,\n    849731625,\n    851692473,\n    852974136,\n    861379425,\n    862714953,\n    946827135,\n    964718253,\n    1357902468\n    // (Truncated for brevity — full list includes 724 entries)\n};\n\nvoid ft_putchar(char c)\n{\n    write(1, &c, 1);\n}\n\nvoid ft_putnbr(long nb)\n{\n    int i;\n    char digits[10];\n\n    i = 9;\n    while (i > -1)\n    {\n        digits[i] = (nb % 10) + '0';\n        nb /= 10;\n        i--;\n    }\n    i = 0;\n    while (i < 10)\n    {\n        ft_putchar(digits[i]);\n        i++;\n    }\n}\n\nint ft_ten_queens_puzzle(void)\n{\n    int i = 0;\n    while (i < 724)\n    {\n        ft_putnbr(g_answers[i]);\n        ft_putchar('\\n');\n        i++;\n    }\n    return 724;\n}",
-					"tests": "int main(void)\n{\n    int count = ft_ten_queens_puzzle();\n    // Output all 724 solutions, each as a 10-digit line\n    return 0;\n}"
+					"tests": "int main(void)\n{\n    int count = ft_ten_queens_puzzle();\n    printf(\"Total: %d\\n\", count);\n    return 0;\n    // Expected output:\n    // 724 lines of solutions (each 10-digit string)\n    // Then:\n    // Total: 724\n}"
 				}
 			]
 		},
@@ -319,19 +319,19 @@
 					"title": "ft_print_program_name",
 					"description": "Write a program that displays its own name followed by a newline.\n\n**Constraints:**\n- Only use `write` from `<unistd.h>`.\n- `argv[0]` contains the program name.\n\n**Function prototype:**\n```c\nint main(int argc, char **argv);\n```",
 					"implementation": "#include <unistd.h>\n\nint main(int argc, char **argv)\n{\n    int i = 0;\n    (void)argc;\n    while (argv[0][i])\n    {\n        write(1, &argv[0][i], 1);\n        i++;\n    }\n    write(1, \"\\n\", 1);\n    return 0;\n}",
-					"tests": "Compile with:\n```bash\ngcc -Wall -Wextra -Werror ft_print_program_name.c -o print_name\n```\nRun:\n```bash\n./print_name\n```"
+					"tests": "Compile with:\n```bash\ngcc -Wall -Wextra -Werror ft_print_program_name.c -o print_name\n```\nRun:\n```bash\n./print_name\n```\nExpected Output:\n```\n./print_name\n```"
 				},
 				{
 					"title": "ft_print_param",
 					"description": "Write a program that displays its arguments, one per line, in the order they were given.\n\n**Constraints:**\n- Use `write` from `<unistd.h>` only.\n\n**Function prototype:**\n```c\nint main(int argc, char **argv);\n```",
 					"implementation": "#include <unistd.h>\n\nint main(int argc, char **argv)\n{\n    int i = 1;\n    int j;\n\n    while (i < argc)\n    {\n        j = 0;\n        while (argv[i][j])\n        {\n            write(1, &argv[i][j], 1);\n            j++;\n        }\n        write(1, \"\\n\", 1);\n        i++;\n    }\n    return 0;\n}",
-					"tests": "Compile with:\n```bash\ngcc -Wall -Wextra -Werror ft_print_param.c -o print_param\n```\nRun with parameters:\n```bash\n./print_param Hello world \"42 School\"\n```\nExpected Output:\n```\nHello\nworld\n42 School\n```"
+					"tests": "Compile with:\n```bash\ngcc -Wall -Wextra -Werror ft_print_param.c -o print_param\n```\nRun with:\n```bash\n./print_param Hello world \"42 School\"\n```\nExpected Output:\n```\nHello\nworld\n42 School\n```"
 				},
 				{
 					"title": "ft_rev_params",
 					"description": "Write a program that displays its arguments in reverse order, one per line.\n\n**Constraints:**\n- Use `write` from `<unistd.h>` only.\n\n**Function prototype:**\n```c\nint main(int argc, char **argv);\n```",
 					"implementation": "#include <unistd.h>\n\nint main(int argc, char **argv)\n{\n    int i = argc - 1;\n    int j;\n\n    while (i > 0)\n    {\n        j = 0;\n        while (argv[i][j])\n        {\n            write(1, &argv[i][j], 1);\n            j++;\n        }\n        write(1, \"\\n\", 1);\n        i--;\n    }\n    return 0;\n}",
-					"tests": "Compile with:\n```bash\ngcc -Wall -Wextra -Werror ft_rev_params.c -o rev_params\n```\nRun with parameters:\n```bash\n./rev_params Hello world \"42 School\"\n```\nExpected Output:\n```\n42 School\nworld\nHello\n```"
+					"tests": "Compile with:\n```bash\ngcc -Wall -Wextra -Werror ft_rev_params.c -o rev_params\n```\nRun with:\n```bash\n./rev_params Hello world \"42 School\"\n```\nExpected Output:\n```\n42 School\nworld\nHello\n```"
 				},
 				{
 					"title": "ft_sort_params",
@@ -348,30 +348,30 @@
 					"title": "ft_strdup",
 					"description": "Reproduce the behavior of the function `strdup`.\n\n**Function prototype:**\n```c\nchar *ft_strdup(char *src);\n```\n**Constraints:**\n- You must allocate memory using `malloc`.\n- Do not use the standard `strdup` function.",
 					"implementation": "#include <stdlib.h>\n\nchar *ft_strdup(char *src)\n{\n    int i = 0;\n    char *dup;\n\n    while (src[i])\n        i++;\n    dup = (char *)malloc(sizeof(char) * (i + 1));\n    if (!dup)\n        return NULL;\n    i = 0;\n    while (src[i])\n    {\n        dup[i] = src[i];\n        i++;\n    }\n    dup[i] = '\\0';\n    return dup;\n}",
-					"tests": "#include <stdio.h>\nint main() {\n    char *copy = ft_strdup(\"Hello 42\");\n    printf(\"%s\\n\", copy);\n    free(copy);\n    return 0;\n}"
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\nint main() {\n    char *copy = ft_strdup(\"Hello 42\");\n    printf(\"%s\\n\", copy); // Expected: Hello 42\n    free(copy);\n    return 0;\n}"
 				},
 				{
 					"title": "ft_range",
 					"description": "Create an array of ints containing all values from `min` (inclusive) to `max` (exclusive).\n\n**Function prototype:**\n```c\nint *ft_range(int min, int max);\n```\n**Constraints:**\n- Return `NULL` if `min >= max`.\n- You must allocate memory using `malloc`.",
 					"implementation": "#include <stdlib.h>\n\nint *ft_range(int min, int max)\n{\n    int *range;\n    int i = 0;\n\n    if (min >= max)\n        return NULL;\n    range = (int *)malloc(sizeof(int) * (max - min));\n    if (!range)\n        return NULL;\n    while (min < max)\n        range[i++] = min++;\n    return range;\n}",
-					"tests": "#include <stdio.h>\nint main() {\n    int *arr = ft_range(5, 10);\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    free(arr);\n    return 0;\n}"
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\nint main() {\n    int *arr = ft_range(5, 10);\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", arr[i]); // Expected: 5 6 7 8 9\n    printf(\"\\n\");\n    free(arr);\n    return 0;\n}"
 				},
 				{
 					"title": "ft_ultimate_range",
 					"description": "Allocate and assign a range of integers to a pointer-to-pointer and return the size.\n\n**Function prototype:**\n```c\nint ft_ultimate_range(int **range, int min, int max);\n```\n**Constraints:**\n- Return `0` and set `*range` to `NULL` if `min >= max`.\n- Return `-1` on allocation failure.",
 					"implementation": "#include <stdlib.h>\n\nint ft_ultimate_range(int **range, int min, int max)\n{\n    int size = max - min;\n    int i;\n\n    if (min >= max)\n    {\n        *range = NULL;\n        return 0;\n    }\n    *range = (int *)malloc(sizeof(int) * size);\n    if (!*range)\n        return -1;\n    for (i = 0; i < size; i++)\n        (*range)[i] = min + i;\n    return size;\n}",
-					"tests": "#include <stdio.h>\nint main() {\n    int *arr;\n    int size = ft_ultimate_range(&arr, 3, 8);\n    for (int i = 0; i < size; i++)\n        printf(\"%d \", arr[i]);\n    printf(\"\\n\");\n    free(arr);\n    return 0;\n}"
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\nint main() {\n    int *arr;\n    int size = ft_ultimate_range(&arr, 3, 8);\n    for (int i = 0; i < size; i++)\n        printf(\"%d \", arr[i]); // Expected: 3 4 5 6 7\n    printf(\"\\n\");\n    free(arr);\n    return 0;\n}"
 				},
 				{
 					"title": "ft_strjoin",
 					"description": "Concatenate all strings in `strs` array with `sep` between them.\n\n**Function prototype:**\n```c\nchar *ft_strjoin(int size, char **strs, char *sep);\n```\n**Constraints:**\n- If `size` is `0`, return an empty string (not `NULL`).",
-					"implementation": "#include <stdlib.h>\n\nint ft_strlen(char *str)\n{\n    int len = 0;\n    while (str[len])\n        len++;\n    return len;\n}\n\nchar *ft_strcat(char *dest, char *src)\n{\n    int i = 0;\n    int j = 0;\n    while (dest[i])\n        i++;\n    while (src[j])\n        dest[i++] = src[j++];\n    dest[i] = '\\0';\n    return dest;\n}\n\nchar *ft_strjoin(int size, char **strs, char *sep)\n{\n    int len = 0, i;\n    char *res;\n\n    if (size == 0)\n        return (char *)malloc(sizeof(char));\n\n    for (i = 0; i < size; i++)\n        len += ft_strlen(strs[i]);\n    len += ft_strlen(sep) * (size - 1);\n\n    res = (char *)malloc(sizeof(char) * (len + 1));\n    if (!res)\n        return NULL;\n    res[0] = '\\0';\n\n    for (i = 0; i < size; i++)\n    {\n        ft_strcat(res, strs[i]);\n        if (i < size - 1)\n            ft_strcat(res, sep);\n    }\n    return res;\n}",
-					"tests": "#include <stdio.h>\nint main() {\n    char *arr[] = {\"Hello\", \"42\", \"World\"};\n    char *joined = ft_strjoin(3, arr, \" - \");\n    printf(\"%s\\n\", joined);\n    free(joined);\n    return 0;\n}"
+					"implementation": "#include <stdlib.h>\n\nint ft_strlen(char *str)\n{\n    int len = 0;\n    while (str[len])\n        len++;\n    return len;\n}\n\nchar *ft_strcat(char *dest, char *src)\n{\n    int i = 0;\n    int j = 0;\n    while (dest[i])\n        i++;\n    while (src[j])\n        dest[i++] = src[j++];\n    dest[i] = '\\0';\n    return dest;\n}\n\nchar *ft_strjoin(int size, char **strs, char *sep)\n{\n    int len = 0, i;\n    char *res;\n\n    if (size == 0)\n    {\n        res = (char *)malloc(sizeof(char));\n        if (res)\n            res[0] = '\\0';\n        return res;\n    }\n\n    for (i = 0; i < size; i++)\n        len += ft_strlen(strs[i]);\n    len += ft_strlen(sep) * (size - 1);\n\n    res = (char *)malloc(sizeof(char) * (len + 1));\n    if (!res)\n        return NULL;\n    res[0] = '\\0';\n\n    for (i = 0; i < size; i++)\n    {\n        ft_strcat(res, strs[i]);\n        if (i < size - 1)\n            ft_strcat(res, sep);\n    }\n    return res;\n}",
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\nint main() {\n    char *arr[] = {\"Hello\", \"42\", \"World\"};\n    char *joined = ft_strjoin(3, arr, \" - \");\n    printf(\"%s\\n\", joined); // Expected: Hello - 42 - World\n    free(joined);\n    return 0;\n}"
 				},
 				{
 					"title": "ft_convert_base",
 					"description": "Convert a number string from a base to another base.\n\n**Function prototype:**\n```c\nchar *ft_convert_base(char *nbr, char *base_from, char *base_to);\n```\n**Constraints:**\n- You must handle negative numbers.\n- Validate base (minimum 2 chars, no `+`, `-`, or duplicates).",
-					"implementation": "/* For brevity, this is a simplified summary. Typically implemented in 3 parts:\n1. `ft_atoi_base` - converts base_from to int\n2. `ft_putnbr_base` - converts int to base_to string\n3. `ft_convert_base` - ties them together\n*/\n#include <stdlib.h>\n\n// Assume helper functions: ft_strlen, ft_atoi_base, ft_putnbr_base, is_valid_base\n\nchar *ft_convert_base(char *nbr, char *base_from, char *base_to)\n{\n    int number;\n    char *result;\n\n    if (!is_valid_base(base_from) || !is_valid_base(base_to))\n        return NULL;\n    number = ft_atoi_base(nbr, base_from);\n    result = ft_putnbr_base(number, base_to);\n    return result;\n}",
+					"implementation": "/* Simplified overview - full implementation requires: ft_atoi_base, ft_putnbr_base, base validation */\n#include <stdlib.h>\n\nchar *ft_convert_base(char *nbr, char *base_from, char *base_to)\n{\n    int number;\n    char *result;\n\n    if (!is_valid_base(base_from) || !is_valid_base(base_to))\n        return NULL;\n    number = ft_atoi_base(nbr, base_from);\n    result = ft_putnbr_base(number, base_to);\n    return result;\n}",
 					"tests": "#include <stdio.h>\nint main() {\n    char *result = ft_convert_base(\"1010\", \"01\", \"0123456789ABCDEF\");\n    printf(\"%s\\n\", result); // Expected: A\n    free(result);\n    return 0;\n}"
 				}
 			]
@@ -383,13 +383,13 @@
 					"title": "ft_point",
 					"description": "Create a header file that defines a struct named `t_point` with two `int` fields `x` and `y`.\n\n**File:** `ft_point.h`\n```c\n#ifndef FT_POINT_H\n# define FT_POINT_H\n\ntypedef struct s_point\n{\n    int x;\n    int y;\n} t_point;\n\n#endif\n```",
 					"implementation": "#include \"ft_point.h\"\n#include <stdio.h>\n\nvoid set_point(t_point *point)\n{\n    point->x = 42;\n    point->y = 21;\n}",
-					"tests": "#include \"ft_point.h\"\n#include <stdio.h>\n\nvoid set_point(t_point *point);\n\nint main(void)\n{\n    t_point point;\n    set_point(&point);\n    printf(\"x: %d, y: %d\\n\", point.x, point.y);\n    return 0;\n}"
+					"tests": "#include \"ft_point.h\"\n#include <stdio.h>\n\nvoid set_point(t_point *point);\n\nint main(void)\n{\n    t_point point;\n    set_point(&point);\n    printf(\"x: %d, y: %d\\n\", point.x, point.y); // Expected: x: 42, y: 21\n    return 0;\n}"
 				},
 				{
 					"title": "ft_strs_to_tab",
 					"description": "Convert an array of strings to an array of structures containing each string, its copy, and length.\n\n**Structure:**\n```c\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n```\n**Function:**\n```c\nt_stock_str *ft_strs_to_tab(int ac, char **av);\n```",
 					"implementation": "#include <stdlib.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nchar *ft_strdup(char *src)\n{\n    int i = 0;\n    char *copy;\n    while (src[i]) i++;\n    copy = malloc(i + 1);\n    if (!copy) return NULL;\n    for (int j = 0; j <= i; j++)\n        copy[j] = src[j];\n    return copy;\n}\n\nint ft_strlen(char *str)\n{\n    int i = 0;\n    while (str[i]) i++;\n    return i;\n}\n\nt_stock_str *ft_strs_to_tab(int ac, char **av)\n{\n    t_stock_str *arr = malloc(sizeof(t_stock_str) * (ac + 1));\n    if (!arr) return NULL;\n    for (int i = 0; i < ac; i++) {\n        arr[i].size = ft_strlen(av[i]);\n        arr[i].str = av[i];\n        arr[i].copy = ft_strdup(av[i]);\n    }\n    arr[ac].str = NULL;\n    return arr;\n}",
-					"tests": "#include <stdio.h>\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nt_stock_str *ft_strs_to_tab(int ac, char **av);\n\nint main(int argc, char **argv)\n{\n    t_stock_str *array = ft_strs_to_tab(argc - 1, argv + 1);\n    for (int i = 0; array[i].str != NULL; i++) {\n        printf(\"[%d] str: %s, copy: %s, size: %d\\n\", i, array[i].str, array[i].copy, array[i].size);\n        free(array[i].copy);\n    }\n    free(array);\n    return 0;\n}"
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nt_stock_str *ft_strs_to_tab(int ac, char **av);\n\nint main(int argc, char **argv)\n{\n    t_stock_str *array = ft_strs_to_tab(argc - 1, argv + 1);\n    for (int i = 0; array[i].str != NULL; i++) {\n        printf(\"[%d] str: %s, copy: %s, size: %d\\n\", i, array[i].str, array[i].copy, array[i].size);\n        free(array[i].copy);\n    }\n    free(array);\n    return 0;\n}\n\n/*\nExample run:\n$ ./a.out hello 42 piscine\nExpected output:\n[0] str: hello, copy: hello, size: 5\n[1] str: 42, copy: 42, size: 2\n[2] str: piscine, copy: piscine, size: 7\n*/"
 				}
 			]
 		},
@@ -400,7 +400,7 @@
 					"title": "ft_split",
 					"description": "Split a string into an array of words separated by a given charset.\n\n**Function:**\n```c\nchar **ft_split(char *str, char *charset);\n```",
 					"implementation": "#include <stdlib.h>\n\nint is_sep(char c, char *charset)\n{\n    for (int i = 0; charset[i]; i++)\n        if (c == charset[i])\n            return 1;\n    return 0;\n}\n\nint count_words(char *str, char *charset)\n{\n    int count = 0;\n    int i = 0;\n    while (str[i]) {\n        while (str[i] && is_sep(str[i], charset)) i++;\n        if (str[i]) count++;\n        while (str[i] && !is_sep(str[i], charset)) i++;\n    }\n    return count;\n}\n\nchar *word_dup(char *start, int len)\n{\n    char *word = malloc(len + 1);\n    for (int i = 0; i < len; i++)\n        word[i] = start[i];\n    word[len] = '\\0';\n    return word;\n}\n\nchar **ft_split(char *str, char *charset)\n{\n    int i = 0, j = 0, k, word_len;\n    char **result = malloc((count_words(str, charset) + 1) * sizeof(char *));\n\n    while (str[i]) {\n        while (str[i] && is_sep(str[i], charset)) i++;\n        k = i;\n        while (str[i] && !is_sep(str[i], charset)) i++;\n        word_len = i - k;\n        if (word_len > 0)\n            result[j++] = word_dup(&str[k], word_len);\n    }\n    result[j] = NULL;\n    return result;\n}",
-					"tests": "#include <stdio.h>\nint main() {\n    char **words = ft_split(\"hello world 42 school\", \" \");\n    for (int i = 0; words[i]; i++) {\n        printf(\"word[%d]: %s\\n\", i, words[i]);\n        free(words[i]);\n    }\n    free(words);\n    return 0;\n}"
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\n\nchar **ft_split(char *str, char *charset);\n\nint main() {\n    char **words = ft_split(\"hello world 42 school\", \" \");\n    for (int i = 0; words[i]; i++) {\n        printf(\"word[%d]: %s\\n\", i, words[i]);\n        free(words[i]);\n    }\n    free(words);\n    return 0;\n}\n\n/*\nExpected output:\nword[0]: hello\nword[1]: world\nword[2]: 42\nword[3]: school\n*/"
 				}
 			]
 		}
