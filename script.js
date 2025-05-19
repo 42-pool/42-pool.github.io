@@ -19,7 +19,7 @@ function escapeHTML(str) {
 
 function scrollToHashTarget() {
 	const hash = window.location.hash;
-	if (hash && hash.startsWith('#ex-')) {
+	if (hash) {
 		const target = document.querySelector(hash);
 		if (target) {
 			target.scrollIntoView({ behavior: 'smooth' });
