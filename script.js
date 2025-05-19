@@ -200,3 +200,27 @@ document.getElementById('search').addEventListener(
 		}
 	}, 200)
 );
+
+document.addEventListener('DOMContentLoaded', () => {
+	const goTopBtn = document.getElementById('goTopBtn');
+
+	// Scroll event throttling using requestAnimationFrame
+	let ticking = false;
+
+	function handleScroll() {
+		const scrollY = window.scrollY || document.documentElement.scrollTop;
+		goTopBtn.style.display = scrollY > 200 ? 'block' : 'none';
+		ticking = false;
+	}
+
+	window.addEventListener('scroll', () => {
+		if (!ticking) {
+			window.requestAnimationFrame(handleScroll);
+			ticking = true;
+		}
+	});
+
+	goTopBtn.addEventListener('click', () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	});
+});
