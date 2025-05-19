@@ -1,9 +1,13 @@
+let exerciseData = null;
+
 // Fetch and render content from JSON
 fetch('content.json')
 	.then(response => response.json())
-	.then(data => renderPage(data));
+	.then(data => {
+		exerciseData = data;
+		renderPage(data);
+	});
 
-// Utility to escape HTML characters in code
 function escapeHTML(str) {
 	return str
 		.replace(/&/g, '&amp;')
@@ -21,7 +25,6 @@ function scrollToHashTarget() {
 			target.scrollIntoView({ behavior: 'smooth' });
 		}
 	} else {
-		// Scroll to top if no valid hash
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
 }
@@ -30,11 +33,8 @@ function renderPage(data) {
 	const toc = document.getElementById('toc');
 	const content = document.getElementById('content');
 
-	// Delete loading elements
 	const loadingElements = document.querySelectorAll('.loading');
-	loadingElements.forEach(element => {
-		element.remove();
-	});
+	loadingElements.forEach(element => element.remove());
 
 	// Table of contents
 	let tocHTML = '<ul>';
@@ -82,10 +82,8 @@ function renderPage(data) {
 		content.appendChild(daySection);
 	});
 
-	// Highlight code
 	hljs.highlightAll();
 
-	// Enable copy functionality
 	document.querySelectorAll('.copy-button').forEach(button => {
 		button.addEventListener('click', () => {
 			const code = button.nextElementSibling.querySelector('code').innerText;
@@ -124,4 +122,50 @@ function renderPage(data) {
 // Re-scroll on hash change
 window.addEventListener('hashchange', () => {
 	scrollToHashTarget();
+});
+
+// Search filter logic
+document.getElementById('search').addEventListener('input', function (e) {
+	const query = e.target.value.toLowerCase();
+
+	const allDays = document.querySelectorAll('.day');
+	const allTOCItems = document.querySelectorAll('#toc > ul > li');
+
+	allDays.forEach((day, dayIdx) => {
+		let exercises = day.querySelectorAll('.exercise');
+		let visibleExercises = 0;
+
+		exercises.forEach((exercise, exIdx) => {
+			const title = exercise.querySelector('h3')?.textContent.toLowerCase() || '';
+			const description = exercise.querySelector('p')?.textContent.toLowerCase() || '';
+			const codeBlocks = exercise.querySelectorAll('code');
+			const code = Array.from(codeBlocks)
+				.map(cb => cb.textContent.toLowerCase())
+				.join(' ');
+
+			const matches = title.includes(query) || description.includes(query) || code.includes(query);
+			exercise.style.display = matches ? '' : 'none';
+			if (matches) visibleExercises++;
+		});
+
+		// Show or hide day section
+		day.style.display = visibleExercises > 0 ? '' : 'none';
+
+		// Update TOC for this day
+		const tocDay = allTOCItems[dayIdx];
+		if (tocDay) {
+			const tocLinks = tocDay.querySelectorAll('ul > li');
+			let visibleLinks = 0;
+
+			tocLinks.forEach((link, exIdx) => {
+				const ex = exercises[exIdx];
+				const isVisible = ex && ex.style.display !== 'none';
+				link.style.display = isVisible ? '' : 'none';
+				if (isVisible) visibleLinks++;
+			});
+
+			// Show/hide the day in TOC
+			tocDay.style.display = visibleLinks > 0 ? '' : 'none';
+		}
+	});
 });
