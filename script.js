@@ -13,6 +13,19 @@ function escapeHTML(str) {
 		.replace(/'/g, '&#039;');
 }
 
+function scrollToHashTarget() {
+	const hash = window.location.hash;
+	if (hash && hash.startsWith('#ex-')) {
+		const target = document.querySelector(hash);
+		if (target) {
+			target.scrollIntoView({ behavior: 'smooth' });
+		}
+	} else {
+		// Scroll to top if no valid hash
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
+}
+
 function renderPage(data) {
 	const toc = document.getElementById('toc');
 	const content = document.getElementById('content');
@@ -87,6 +100,8 @@ function renderPage(data) {
 		});
 	});
 
+	setTimeout(scrollToHashTarget, 100);
+
 	fetch('https://api.github.com/repos/42-pool/42-pool.github.io/commits?per_page=1')
 		.then(response => response.json())
 		.then(data => {
@@ -105,3 +120,8 @@ function renderPage(data) {
 			document.getElementById('last-updated').textContent = 'Last updated: Unknown';
 		});
 }
+
+// Re-scroll on hash change
+window.addEventListener('hashchange', () => {
+	scrollToHashTarget();
+});

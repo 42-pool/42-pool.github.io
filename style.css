@@ -1,4 +1,7 @@
-/* Dark grayscale theme */
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: Arial, sans-serif;
 	background: #181818;
