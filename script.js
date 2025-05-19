@@ -29,6 +29,14 @@ function scrollToHashTarget() {
 	}
 }
 
+function debounce(fn, delay) {
+	let timeoutId;
+	return function (...args) {
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => fn.apply(this, args), delay);
+	};
+}
+
 function renderPage(data) {
 	const toc = document.getElementById('toc');
 	const content = document.getElementById('content');
@@ -125,47 +133,70 @@ window.addEventListener('hashchange', () => {
 });
 
 // Search filter logic
-document.getElementById('search').addEventListener('input', function (e) {
-	const query = e.target.value.toLowerCase();
+document.getElementById('search').addEventListener(
+	'input',
+	debounce(function (e) {
+		const query = e.target.value.toLowerCase();
 
-	const allDays = document.querySelectorAll('.day');
-	const allTOCItems = document.querySelectorAll('#toc > ul > li');
+		const allDays = document.querySelectorAll('.day');
+		const allTOCItems = document.querySelectorAll('#toc > ul > li');
 
-	allDays.forEach((day, dayIdx) => {
-		let exercises = day.querySelectorAll('.exercise');
-		let visibleExercises = 0;
+		allDays.forEach((day, dayIdx) => {
+			let exercises = day.querySelectorAll('.exercise');
+			let visibleExercises = 0;
 
-		exercises.forEach((exercise, exIdx) => {
-			const title = exercise.querySelector('h3')?.textContent.toLowerCase() || '';
-			const description = exercise.querySelector('p')?.textContent.toLowerCase() || '';
-			const codeBlocks = exercise.querySelectorAll('code');
-			const code = Array.from(codeBlocks)
-				.map(cb => cb.textContent.toLowerCase())
-				.join(' ');
+			exercises.forEach((exercise, exIdx) => {
+				const title = exercise.querySelector('h3')?.textContent.toLowerCase() || '';
+				const description = exercise.querySelector('p')?.textContent.toLowerCase() || '';
+				const codeBlocks = exercise.querySelectorAll('code');
+				const code = Array.from(codeBlocks)
+					.map(cb => cb.textContent.toLowerCase())
+					.join(' ');
 
-			const matches = title.includes(query) || description.includes(query) || code.includes(query);
-			exercise.style.display = matches ? '' : 'none';
-			if (matches) visibleExercises++;
-		});
-
-		// Show or hide day section
-		day.style.display = visibleExercises > 0 ? '' : 'none';
-
-		// Update TOC for this day
-		const tocDay = allTOCItems[dayIdx];
-		if (tocDay) {
-			const tocLinks = tocDay.querySelectorAll('ul > li');
-			let visibleLinks = 0;
-
-			tocLinks.forEach((link, exIdx) => {
-				const ex = exercises[exIdx];
-				const isVisible = ex && ex.style.display !== 'none';
-				link.style.display = isVisible ? '' : 'none';
-				if (isVisible) visibleLinks++;
+				const matches =
+					title.includes(query) || description.includes(query) || code.includes(query);
+				exercise.style.display = matches ? '' : 'none';
+				if (matches) visibleExercises++;
 			});
 
-			// Show/hide the day in TOC
-			tocDay.style.display = visibleLinks > 0 ? '' : 'none';
+			// Show or hide day section
+			day.style.display = visibleExercises > 0 ? '' : 'none';
+
+			// Update TOC for this day
+			const tocDay = allTOCItems[dayIdx];
+			if (tocDay) {
+				const tocLinks = tocDay.querySelectorAll('ul > li');
+				let visibleLinks = 0;
+
+				tocLinks.forEach((link, exIdx) => {
+					const ex = exercises[exIdx];
+					const isVisible = ex && ex.style.display !== 'none';
+					link.style.display = isVisible ? '' : 'none';
+					if (isVisible) visibleLinks++;
+				});
+
+				tocDay.style.display = visibleLinks > 0 ? '' : 'none';
+			}
+		});
+
+		// Show a message in TOC if all are hidden
+		const toc = document.getElementById('toc');
+		const allTOCItemsVisible = Array.from(allTOCItems).some(item => item.style.display !== 'none');
+
+		let noResultsMessage = document.getElementById('no-results-message');
+		if (!allTOCItemsVisible) {
+			if (!noResultsMessage) {
+				noResultsMessage = document.createElement('p');
+				noResultsMessage.id = 'no-results-message';
+				noResultsMessage.textContent = 'No exercises match your search.';
+				noResultsMessage.style.color = '#999';
+				noResultsMessage.style.fontStyle = 'italic';
+				toc.appendChild(noResultsMessage);
+			}
+		} else {
+			if (noResultsMessage) {
+				noResultsMessage.remove();
+			}
 		}
-	});
-});
+	}, 200)
+);
