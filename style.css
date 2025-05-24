@@ -79,6 +79,11 @@ nav#toc li {
 	margin: 4px 0;
 }
 
+nav#toc a:hover,
+nav#toc a:focus {
+	text-decoration: underline;
+}
+
 nav#toc > ul > li {
 	margin-top: 10px;
 	font-weight: bold;
@@ -229,6 +234,10 @@ a:focus {
 	background-color: #333;
 }
 
+.second-header {
+	display: none;
+}
+
 ::selection {
 	background: #444;
 	color: #fff;
@@ -246,4 +255,58 @@ a:focus {
 
 ::-webkit-scrollbar-thumb:hover {
 	background: #888;
+}
+
+@media (min-width: 1400px) {
+	.sidebar {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 20%;
+		height: 100%;
+		background: #1e1e1e;
+		padding: 16px;
+		overflow-y: auto;
+		border-right: 1px solid #333;
+	}
+
+	.container {
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	#content {
+		margin-left: 20%;
+		width: 80%;
+		padding: 1em;
+	}
+
+	.search {
+		margin: 0;
+		margin-bottom: 16px;
+	}
+	nav#toc {
+		margin-bottom: 0;
+		border: none;
+		padding: 0;
+	}
+
+	nav#toc ul {
+		margin: 0;
+	}
+
+	.header {
+		display: none;
+	}
+
+	.second-header {
+		display: block;
+	}
+
+	footer {
+		/* width of 80% and the rest is to the left */
+		width: 80%;
+		margin-left: 20%;
+	}
 }
