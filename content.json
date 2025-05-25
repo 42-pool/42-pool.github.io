@@ -2,6 +2,127 @@
 	"days": [
 		{
 			"day": 0,
+			"title": "Shell 00",
+			"exercises": [
+				{
+					"title": "Z",
+					"description": "Create a file called `z` that returns 'Z', followed by a new line, whenever the command `cat` is used on it.\n\n**Turn-in directory:** `ex00/`\n**Files to turn in:** `z`\n**Allowed functions:** None\n\n**Example:**\n```sh\n?>cat z\nZ\n?>\n```",
+					"implementation": "# This is a shell exercise, create a file named 'z'\n# The content of 'z' should simply be 'Z' followed by a newline.\n# You can create it with: echo 'Z' > z",
+					"tests": "# To test, run:\ncat z\n# Expected output: Z"
+				},
+				{
+					"title": "testShell00",
+					"description": "Create a file called `testShell00`. Modify its attributes so that the output of `ls -l` matches the example (permissions: `-r--r-xr-x`).\n\n**Turn-in directory:** `ex01/`\n**Files to turn in:** `testShell00.tar`\n**Allowed functions:** None\n\n**Example `ls -l` output:**\n```\n-r--r-xr-x 1 XX XX 40 Jun 1 23:42 testShell00\n```\n**Submission command:** `tar -cf testShell00.tar testShell00`",
+					"implementation": "# 1. Create the file:\ntouch testShell00\n# 2. Set the permissions:\nchmod 455 testShell00\n# 3. Set the timestamp (approximate, e.g., for Jun 1 23:42):\ntouch -t 06012342 testShell00\n# 4. Create the archive:\ntar -cf testShell00.tar testShell00",
+					"tests": "# 1. Create the file and set attributes as in implementation.\n# 2. Run:\nls -l testShell00\n# 3. Create the archive:\ntar -cf testShell00.tar testShell00\n# 4. Verify archive content:\ntar -tf testShell00.tar"
+				},
+				{
+					"title": "Oh yeah, mooore...",
+					"description": "Create a set of files and directories (`test0` to `test6`) and modify their attributes and types (directory, file, symbolic link) so that the output of `ls -l` matches the provided example.\n\n**Turn-in directory:** `ex02/`\n**Files to turn in:** `exo2.tar`\n**Allowed functions:** None\n\n**Example `ls -l` output:**\n```\ndrwx--xr-x 2 XX XX XX Jun 1 20:47 test0\n-rwx--xr-- 1 XX XX  4 Jun 1 21:46 test1\ndr-xr-x--- 2 XX XX XX Jun 1 22:45 test2\n-r--r--r-- 1 XX XX  1 Jun 1 23:44 test3\n-rw-r-x--- 1 XX XX  2 Jun 1 23:43 test4\n-r--r--r-- 1 XX XX  1 Jun 1 23:44 test5\nlrwxrwxrwx 1 XX XX  5 Jun 1 22:20 test6 -> test0\n```\n**Submission command:** `tar -cf exo2.tar *`",
+					"implementation": "# Requires creating files/dirs and setting specific permissions/timestamps/links.\n# Example steps (timestamps need adjustment):\nmkdir test0; chmod 715 test0\necho \"test\" > test1; chmod 714 test1\nmkdir test2; chmod 550 test2\necho \"t\" > test3; chmod 444 test3\necho \"te\" > test4; chmod 650 test4\necho \"t\" > test5; chmod 444 test5\nln -s test0 test6\n# Adjust timestamps with 'touch -t'\ntar -cf exo2.tar test0 test1 test2 test3 test4 test5 test6",
+					"tests": "# 1. Run implementation steps.\n# 2. Run:\nls -l\n# 3. Verify output matches the example.\n# 4. Create archive:\ntar -cf exo2.tar test0 test1 test2 test3 test4 test5 test6"
+				},
+				{
+					"title": "SSH me!",
+					"description": "Create your own SSH key pair. Add your public key to your Git repository in a file named `id_rsa_pub`. Update your SSH key on the 42 intranet to allow pushing to the Git server.\n\n**Turn-in directory:** `ex03/`\n**Files to turn in:** `id_rsa_pub`\n**Allowed functions:** None",
+					"implementation": "# 1. Generate SSH key:\nssh-keygen -t rsa\n# 2. Copy public key to submission directory:\ncp ~/.ssh/id_rsa.pub id_rsa_pub\n# 3. Add public key to 42 intranet.",
+					"tests": "# 1. Check if id_rsa_pub exists in ex03/.\n# 2. Check if the key is valid and added to the intranet (manual/server check)."
+				},
+				{
+					"title": "midLS",
+					"description": "Create a file named `midLS`. Inside this file, write a command line that lists all non-hidden files and directories in the current directory, separated by a comma and a space, ordered by modification date. Directory names must end with a slash (`/`).\n\n**Turn-in directory:** `ex04/`\n**Files to turn in:** `midLS`\n**Allowed functions:** None",
+					"implementation": "# Create midLS file. The command inside could be:\n# ls -tmpF | tr '\\n' ',' | sed 's/,/, /g; s/,[ ]*$//; s/\\*//g; s/@//g; s/=//g; s/|//g'",
+					"tests": "# 1. Create some files and directories.\n# 2. Run the command from midLS:\nbash midLS\n# 3. Verify the output format and order."
+				},
+				{
+					"title": "GiT commit",
+					"description": "Create a shell script `git_commit.sh` that displays the hash (ID) of the last 5 commits in your Git repository, one per line, followed by a dollar sign (`$`).\n\n**Turn-in directory:** `ex05/`\n**Files to turn in:** `git_commit.sh`\n**Allowed functions:** None\n\n**Example output:**\n```\nbaa23b54f0adb7bf42623d6d0a6ed4587e11412a$\n...\n```",
+					"implementation": "#!/bin/sh\ngit log -n 5 --pretty=format:%H",
+					"tests": "# 1. Ensure you are in a git repository with at least 5 commits.\n# 2. Run:\nbash git_commit.sh | cat -e\n# 3. Verify the output shows 5 hashes ending with $."
+				},
+				{
+					"title": "gitignore",
+					"description": "Write a shell script `git_ignore.sh` that lists all files currently ignored by your Git repository, one per line, followed by a dollar sign (`$`).\n\n**Turn-in directory:** `ex06/`\n**Files to turn in:** `git_ignore.sh`\n**Allowed functions:** None\n\n**Example output:**\n```\n.DS_Store$\nmywork.c~$\n```",
+					"implementation": "#!/bin/sh\ngit status --ignored -s | grep '!!' | sed 's/!! //'",
+					"tests": "# 1. Ensure you have a .gitignore file and some ignored files.\n# 2. Run:\nbash git_ignore.sh | cat -e\n# 3. Verify the output lists ignored files ending with $."
+				},
+				{
+					"title": "diff",
+					"description": "Create a file `b`. You are given a file `a`. The goal is to create `b` such that running `diff a b > sw.diff` results in a patch file (`sw.diff`). The content of `a` is provided. The exercise implies using `patch` (likely to create `b` from `a` and `sw.diff`, or vice-versa, but here you create `b`).\n\n**Turn-in directory:** `ex07/`\n**Files to turn in:** `b`\n**Allowed functions:** None\n\n**Note:** The content of `a` is the Star Wars intro text. The content of `b` or `sw.diff` is not given, suggesting you need to find a patch or create `b` such that a *meaningful* `sw.diff` can be generated (or perhaps `sw.diff` should be empty, meaning `b` is identical to `a`). Given the `man patch` hint, it's more likely you need to find a `sw.diff` file and apply it to `a` to get `b`, or vice-versa.",
+					"implementation": "# This exercise is ambiguous without 'sw.diff' or 'a'. Assuming 'sw.diff' exists and needs to be applied to 'a' to get 'b'.\n# Or, more likely, 'sw.diff' is provided elsewhere (or needs to be found), and 'b' is created from 'a' and 'sw.diff'.\n# If we assume b is the text from 'Episode V', we would need to find that text and create file b.\n# If 'sw.diff' is meant to be *applied*, you would use: patch a sw.diff -o b",
+					"tests": "# 1. Obtain file 'a'.\n# 2. Obtain or create 'sw.diff'.\n# 3. Create 'b'.\n# 4. Run:\ndiff a b > test.diff\n# 5. Compare 'test.diff' with the expected 'sw.diff'."
+				},
+				{
+					"title": "clean",
+					"description": "Create a file `clean` containing a *single* command line (no `;` or `&&`). This command must search for and delete all files in the current directory and its subdirectories that either end with `~` or both start and end with `#`. The command must show the files before deleting them.\n\n**Turn-in directory:** `ex08/`\n**Files to turn in:** `clean`\n**Allowed functions:** None",
+					"implementation": "# Create the 'clean' file with the following command:\n# find . \\( -name '*~' -o \\( -name '#*#' \\) \\) -print -delete",
+					"tests": "# 1. Create test files: touch a~ '#b#' sub/; touch sub/c~ sub/'#d#'\n# 2. Run the command from 'clean':\nbash clean\n# 3. Verify that the files were listed and are now deleted."
+				},
+				{
+					"title": "Illusions, not tricks, Michael...",
+					"description": "Create a `magic` file named `ft_magic`. This file should be formatted according to `man file` or `man magic` to allow the `file` command to detect a custom file type, named `42`, for any file that contains the string '42' starting at the 42nd byte (offset 41).\n\n**Turn-in directory:** `ex09/`\n**Files to turn in:** `ft_magic`\n**Allowed functions:** None",
+					"implementation": "# Content of ft_magic:\n# 41 string 42 42 file\\n",
+					"tests": "# 1. Create ft_magic with the implementation content.\n# 2. Create a test file:\n# python -c \"print('A'*41 + '42' + 'B'*10)\" > test_42_file\n# 3. Run the file command with the magic file:\n# file -m ft_magic test_42_file\n# 4. Expected output: test_42_file: 42 file"
+				}
+			]
+		},
+		{
+			"day": 1,
+			"title": "Shell 01",
+			"exercises": [
+				{
+					"title": "print_groups",
+					"description": "Write a command line that will display the list of groups for the login contained in the environment variable `FT_USER`. Groups must be separated by commas without spaces.\n\n**Turn-in directory:** `ex01/`\n**Files to turn in:** `print_groups.sh`\n**Allowed functions:** None\n\n**Example:**\n```sh\nFT_USER=nours ./print_groups.sh\ngod,root,admin,master,nours,bocal\n```",
+					"implementation": "#!/bin/sh\nid -Gn $FT_USER | tr ' ' ','",
+					"tests": "# 1. Set the environment variable:\nexport FT_USER=$(whoami)\n# 2. Make the script executable:\nchmod +x print_groups.sh\n# 3. Run the script:\n./print_groups.sh\n# 4. Verify the output is a comma-separated list of your groups."
+				},
+				{
+					"title": "find_sh",
+					"description": "Write a command line that searches for all file names ending with `.sh` (without quotation marks) in the current directory and all its sub-directories. It should display only the file names without the `.sh` extension.\n\n**Turn-in directory:** `ex02/`\n**Files to turn in:** `find_sh.sh`\n**Allowed functions:** None",
+					"implementation": "#!/bin/sh\nfind . -type f -name \"*.sh\" -exec basename {} \\; | sed 's/\\.sh$//'",
+					"tests": "# 1. Create some test files:\ntouch a.sh b.txt sub/\ntouch sub/c.sh\n# 2. Make the script executable:\nchmod +x find_sh.sh\n# 3. Run the script:\n./find_sh.sh\n# Expected output:\na\nc\n(Order may vary)"
+				},
+				{
+					"title": "count_files",
+					"description": "Write a command line that counts and displays the number of regular files and directories in the current directory and all its sub-directories, including hidden ones and '.'\n\n**Turn-in directory:** `ex03/`\n**Files to turn in:** `count_files.sh`\n**Allowed functions:** None\n\n**Example output:**\n```sh\n42\n```",
+					"implementation": "#!/bin/sh\nfind . | wc -l | tr -d ' '",
+					"tests": "# 1. Create some files and directories.\n# 2. Make the script executable:\nchmod +x count_files.sh\n# 3. Run the script:\n./count_files.sh\n# 4. Verify the output is a single number."
+				},
+				{
+					"title": "MAC",
+					"description": "Write a command line that displays your machine's MAC addresses. Each address must be followed by a line break.\n\n**Turn-in directory:** `ex04/`\n**Files to turn in:** `MAC.sh`\n**Allowed functions:** None",
+					"implementation": "#!/bin/sh\nifconfig -a | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}'",
+					"tests": "# 1. Make the script executable:\nchmod +x MAC.sh\n# 2. Run the script:\n./MAC.sh\n# 3. Verify the output shows one or more MAC addresses, each on a new line."
+				},
+				{
+					"title": "Can you create it ?",
+					"description": "Create a file containing only `42`, and NOTHING else. Its name must be exactly `\"\\?$\\*'MaRViN'*\\$?\\\"`.\n\n**Turn-in directory:** `ex05/`\n**Files to turn in:** `\"\\?$\\*'MaRViN'*\\$?\\\"`\n**Allowed functions:** None",
+					"implementation": "# Create the file with the specific name and content:\necho -n '42' > \"\\?$\\*'MaRViN'*\\$?\\\" ",
+					"tests": "# 1. Run the implementation command.\n# 2. Check existence and name:\nls | grep 'MaRViN'\n# 3. Check content:\ncat \"\\?$\\*'MaRViN'*\\$?\\\" | cat -e\n# Expected output: 42$"
+				},
+				{
+					"title": "Skip",
+					"description": "Write a command line that displays one line out of two for the output of `ls -l`, starting from the first line.\n\n**Turn-in directory:** `ex06/`\n**Files to turn in:** `skip.sh`\n**Allowed functions:** None",
+					"implementation": "#!/bin/sh\nls -l | awk 'NR % 2 != 0'",
+					"tests": "# 1. Make the script executable:\nchmod +x skip.sh\n# 2. Run the script:\n./skip.sh\n# 3. Verify it shows only the odd-numbered lines from ls -l."
+				},
+				{
+					"title": "r_dwssap",
+					"description": "Write a command line that processes `/etc/passwd`: removes comments, selects every other line starting from the second, reverses each login (part before the first colon), sorts logins in reverse alphabetical order, selects logins between lines `FT_LINE1` and `FT_LINE2`, and formats them separated by `, ` ending with `.`.\n\n**Turn-in directory:** `ex07/`\n**Files to turn in:** `r_dwssap.sh`\n**Allowed functions:** None",
+					"implementation": "#!/bin/sh\nexport FT_LINE1=7\nexport FT_LINE2=15\ncat /etc/passwd | grep -v '^#' | awk 'NR % 2 == 0' | cut -d: -f1 | rev | sort -r | awk -v L1=$FT_LINE1 -v L2=$FT_LINE2 'NR>=L1 && NR<=L2' | tr '\\n' ',' | sed 's/,/, /g; s/, $/./'",
+					"tests": "# 1. Set environment variables:\nexport FT_LINE1=7\nexport FT_LINE2=15\n# 2. Make the script executable:\nchmod +x r_dwssap.sh\n# 3. Run the script:\n./r_dwssap.sh\n# 4. Verify the output format against the example."
+				},
+				{
+					"title": "add_chelou",
+					"description": "Write a command line that takes `FT_NBR1` (base `\\'\"?!` -> 01234) and `FT_NBR2` (base `mrdoc` -> 01234), calculates their sum, and displays it in base `gtaio luSnemf` -> 0123456789.\n\n**Turn-in directory:** `ex08/`\n**Files to turn in:** `add_chelou.sh`\n**Allowed functions:** None\n\n**Example 1:**\nFT_NBR1='\\'?\"\"' (130 base 5)\nFT_NBR2=rcrdmddd (2310000 base 5)\nSum = Salut (17342 base 10)\n**Example 2:**\nFT_NBR1=\"\"!\"\"!\"\"!\"\"!\"\"!\"\"\nFT_NBR2=dcrcmcmooododmrrrmorcmcrmomo\nSum = Segmentation fault",
+					"implementation": "#!/bin/sh\nNBR1_BASE5=$(echo $FT_NBR1 | tr \"\\'\\\\\\\"?!\" \"01234\")\nNBR2_BASE5=$(echo $FT_NBR2 | tr \"mrdoc\" \"01234\")\nNBR1_DEC=$(echo \"ibase=5; $NBR1_BASE5\" | bc)\nNBR2_DEC=$(echo \"ibase=5; $NBR2_BASE5\" | bc)\nSUM_DEC=$((NBR1_DEC + NBR2_DEC))\nRESULT=$(echo \"obase=10; $SUM_DEC\" | bc | tr \"0123456789\" \"gtaioluSnm\")\necho $RESULT",
+					"tests": "# 1. Set environment variables:\nexport FT_NBR1=\"'\\\"?!\"\nexport FT_NBR2=\"mrdoc\"\n# 2. Make script executable and run:\nchmod +x add_chelou.sh\n./add_chelou.sh\n# 3. Verify the output. Note: The provided example 1 seems complex/potentially incorrect. A direct translation/sum might be needed. The script above attempts a direct conversion/sum."
+				}
+			]
+		},
+		{
+			"day": 2,
+			"title": "C 00",
 			"exercises": [
 				{
 					"title": "ft_putchar",
@@ -60,7 +181,8 @@
 			]
 		},
 		{
-			"day": 1,
+			"day": 3,
+			"title": "C 01",
 			"exercises": [
 				{
 					"title": "ft_ft",
@@ -119,7 +241,8 @@
 			]
 		},
 		{
-			"day": 2,
+			"day": 4,
+			"title": "C 02",
 			"exercises": [
 				{
 					"title": "ft_strcpy",
@@ -202,7 +325,8 @@
 			]
 		},
 		{
-			"day": 3,
+			"day": 5,
+			"title": "C 03",
 			"exercises": [
 				{
 					"title": "ft_strcmp",
@@ -243,7 +367,8 @@
 			]
 		},
 		{
-			"day": 4,
+			"day": 6,
+			"title": "C 04",
 			"exercises": [
 				{
 					"title": "ft_atoi",
@@ -266,7 +391,8 @@
 			]
 		},
 		{
-			"day": 5,
+			"day": 7,
+			"title": "C 05",
 			"exercises": [
 				{
 					"title": "ft_iterative_factorial",
@@ -313,7 +439,8 @@
 			]
 		},
 		{
-			"day": 6,
+			"day": 8,
+			"title": "C 06",
 			"exercises": [
 				{
 					"title": "ft_print_program_name",
@@ -342,7 +469,8 @@
 			]
 		},
 		{
-			"day": 7,
+			"day": 9,
+			"title": "C 07",
 			"exercises": [
 				{
 					"title": "ft_strdup",
@@ -377,7 +505,8 @@
 			]
 		},
 		{
-			"day": 8,
+			"day": 10,
+			"title": "C 08",
 			"exercises": [
 				{
 					"title": "ft_point",
@@ -394,7 +523,8 @@
 			]
 		},
 		{
-			"day": 9,
+			"day": 11,
+			"title": "C 09",
 			"exercises": [
 				{
 					"title": "ft_split",

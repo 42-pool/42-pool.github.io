@@ -47,9 +47,9 @@ function renderPage(data) {
 	// Table of contents
 	let tocHTML = '<ul>';
 	data.days.forEach((day, dayIdx) => {
-		tocHTML += `<li><a href="#day${day.day}">Day ${day.day}</a><ul>`;
+		tocHTML += `<li><a href="#${day.day}">${day.title}</a><ul>`;
 		day.exercises.forEach((ex, exIdx) => {
-			tocHTML += `<li><a href="#ex-${day.day}-${exIdx}">${ex.title}</a></li>`;
+			tocHTML += `<li><a href="#${day.day}-${exIdx}">${ex.title}</a></li>`;
 		});
 		tocHTML += '</ul></li>';
 	});
@@ -60,12 +60,12 @@ function renderPage(data) {
 	data.days.forEach((day, dayIdx) => {
 		const daySection = document.createElement('section');
 		daySection.className = 'day';
-		daySection.id = `day${day.day}`;
+		daySection.id = `${day.day}`;
 
-		let html = `<h2>Day ${day.day}</h2>`;
+		let html = `<h2>${day.title}</h2>`;
 		day.exercises.forEach((ex, exIdx) => {
 			html += `
-        <div class="exercise" id="ex-${day.day}-${exIdx}">
+        <div class="exercise" id="${day.day}-${exIdx}">
           <h3>${ex.title}</h3>
           <p>${marked.parse(ex.description)}</p>
 

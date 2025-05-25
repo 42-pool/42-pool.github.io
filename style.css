@@ -248,6 +248,10 @@ a:focus {
 	height: 8px;
 }
 
+::-webkit-scrollbar-track {
+	background: #222;
+}
+
 ::-webkit-scrollbar-thumb {
 	background: #555;
 	border-radius: 10px;
