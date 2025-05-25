@@ -97,6 +97,10 @@ nav#toc ul ul {
 nav#toc a {
 	color: #c0c0c0;
 	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
 }
 
 nav#toc a:hover {
@@ -261,7 +265,7 @@ a:focus {
 	background: #888;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1100px) {
 	.sidebar {
 		position: fixed;
 		left: 0;
