@@ -431,6 +431,18 @@
 					"tests": "int main() {\n    printf(\"%d\\n\", ft_sqrt(25));\n    printf(\"%d\\n\", ft_sqrt(26));\n    return 0;\n    // Expected output:\n    // 5\n    // 0\n}"
 				},
 				{
+					"title": "ft_is_prime",
+					"description": "Returns 1 if the number is a prime, 0 otherwise.\n\n**Function prototype:**\n```c\nint ft_is_prime(int nb);\n```",
+					"implementation": "int ft_is_prime(int nb) {\n    int i = 2;\n    if (nb <= 1) return 0;\n    while (i * i <= nb) {\n        if (nb % i == 0) return 0;\n        i++;\n    }\n    return 1;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_is_prime(29));\n    printf(\"%d\\n\", ft_is_prime(15));\n    return 0;\n    // Expected output:\n    // 1\n    // 0\n}"
+				},
+				{
+					"title": "ft_find_next_prime",
+					"description": "Returns the next prime number greater than or equal to the given number.\n\n**Function prototype:**\n```c\nint ft_find_next_prime(int nb);\n```",
+					"implementation": "int ft_is_prime(int nb) {\n    int i = 2;\n    if (nb <= 1) return 0;\n    while (i * i <= nb) {\n        if (nb % i == 0) return 0;\n        i++;\n    }\n    return 1;\n}\n\nint ft_find_next_prime(int nb) {\n    while (!ft_is_prime(nb)) nb++;\n    return nb;\n}",
+					"tests": "int main() {\n    printf(\"%d\\n\", ft_find_next_prime(14));\n    printf(\"%d\\n\", ft_find_next_prime(29));\n    return 0;\n    // Expected output:\n    // 17\n    // 29\n}"
+				},
+				{
 					"title": "ft_ten_queens_puzzle",
 					"description": "Write a function that displays all the possible positions of 10 queens on a 10×10 chessboard so that no two queens threaten each other. A solution is displayed as a sequence of 10 digits followed by a newline, where each digit represents the row position of a queen in each column (from column 0 to column 9).\n\n**Function prototype:**\n```c\nint ft_ten_queens_puzzle(void);\n```\n\nThe function should return the total number of solutions found.",
 					"implementation": "#include <unistd.h>\n\nlong g_answers[] = {\n    257948136,\n    258693147,\n    258693174,\n    286931475,\n    358297146,\n    369184275,\n    369281475,\n    369581427,\n    369714258,\n    369724815,\n    369741825,\n    384792516,\n    386192574,\n    386925147,\n    396824175,\n    461973825,\n    469318257,\n    471692853,\n    479261358,\n    479631852,\n    495813627,\n    536928147,\n    536971428,\n    538629147,\n    539682417,\n    571682493,\n    572681493,\n    574182963,\n    579382461,\n    582731946,\n    582963147,\n    584973162,\n    586137942,\n    592683147,\n    615793824,\n    635819427,\n    639714258,\n    641792853,\n    647185293,\n    681592473,\n    681742953,\n    682713594,\n    685297413,\n    695184273,\n    716824935,\n    716924835,\n    718529364,\n    736814952,\n    736815924,\n    738629514,\n    741829635,\n    751693842,\n    751863924,\n    752813964,\n    752814936,\n    758293641,\n    796318524,\n    849731625,\n    851692473,\n    852974136,\n    861379425,\n    862714953,\n    946827135,\n    964718253,\n    1357902468\n    // (Truncated for brevity — full list includes 724 entries)\n};\n\nvoid ft_putchar(char c)\n{\n    write(1, &c, 1);\n}\n\nvoid ft_putnbr(long nb)\n{\n    int i;\n    char digits[10];\n\n    i = 9;\n    while (i > -1)\n    {\n        digits[i] = (nb % 10) + '0';\n        nb /= 10;\n        i--;\n    }\n    i = 0;\n    while (i < 10)\n    {\n        ft_putchar(digits[i]);\n        i++;\n    }\n}\n\nint ft_ten_queens_puzzle(void)\n{\n    int i = 0;\n    while (i < 724)\n    {\n        ft_putnbr(g_answers[i]);\n        ft_putchar('\\n');\n        i++;\n    }\n    return 724;\n}",
@@ -509,16 +521,40 @@
 			"title": "C 08",
 			"exercises": [
 				{
-					"title": "ft_point",
-					"description": "Create a header file that defines a struct named `t_point` with two `int` fields `x` and `y`.\n\n**File:** `ft_point.h`\n```c\n#ifndef FT_POINT_H\n# define FT_POINT_H\n\ntypedef struct s_point\n{\n    int x;\n    int y;\n} t_point;\n\n#endif\n```",
-					"implementation": "#include \"ft_point.h\"\n#include <stdio.h>\n\nvoid set_point(t_point *point)\n{\n    point->x = 42;\n    point->y = 21;\n}",
-					"tests": "#include \"ft_point.h\"\n#include <stdio.h>\n\nvoid set_point(t_point *point);\n\nint main(void)\n{\n    t_point point;\n    set_point(&point);\n    printf(\"x: %d, y: %d\\n\", point.x, point.y); // Expected: x: 42, y: 21\n    return 0;\n}"
+					"title": "ft.h",
+					"description": "Create a header file `ft.h` that contains the prototypes of basic utility functions: `ft_putchar`, `ft_swap`, `ft_putstr`, `ft_strlen`, and `ft_strcmp`.",
+					"implementation": "// File: ft.h\n#ifndef FT_H\n#define FT_H\n\nvoid ft_putchar(char c);\nvoid ft_swap(int *a, int *b);\nvoid ft_putstr(char *str);\nint ft_strlen(char *str);\nint ft_strcmp(char *s1, char *s2);\n\n#endif",
+					"tests": "// Test each function separately in main programs including \"ft.h\""
+				},
+				{
+					"title": "ft_boolean.h",
+					"description": "Define a boolean type using macros and enums in a header file named `ft_boolean.h`.\n\nUse macros for even checking, success codes, and messages.",
+					"implementation": "// File: ft_boolean.h\n#ifndef FT_BOOLEAN_H\n#define FT_BOOLEAN_H\n\n#include <unistd.h>\n\ntypedef enum { FALSE, TRUE } t_bool;\n\n#define EVEN(x) ((x) % 2 == 0)\n#define SUCCESS 0\n#define EVEN_MSG \"I have an even number of arguments.\\n\"\n#define ODD_MSG \"I have an odd number of arguments.\\n\"\n\n#endif",
+					"tests": "#include \"ft_boolean.h\"\n#include <stdio.h>\n\nint main(int argc, char **argv) {\n    (void)argv;\n    if (EVEN(argc - 1))\n        write(1, EVEN_MSG, sizeof(EVEN_MSG));\n    else\n        write(1, ODD_MSG, sizeof(ODD_MSG));\n    return SUCCESS;\n}"
+				},
+				{
+					"title": "ft_abs.h",
+					"description": "Create a macro `ABS` in a header file `ft_abs.h` to return the absolute value of a number.",
+					"implementation": "// File: ft_abs.h\n#ifndef FT_ABS_H\n#define FT_ABS_H\n\n#define ABS(Value) ((Value) < 0 ? -(Value) : (Value))\n\n#endif",
+					"tests": "#include \"ft_abs.h\"\n#include <stdio.h>\n\nint main() {\n    printf(\"ABS(-42) = %d\\n\", ABS(-42));\n    printf(\"ABS(0) = %d\\n\", ABS(0));\n    printf(\"ABS(42) = %d\\n\", ABS(42));\n    return 0;\n}"
+				},
+				{
+					"title": "ft_point.h",
+					"description": "Create a header file that defines a struct named `t_point` with two `int` fields `x` and `y`.",
+					"implementation": "// File: ft_point.h\n#ifndef FT_POINT_H\n#define FT_POINT_H\n\ntypedef struct s_point {\n    int x;\n    int y;\n} t_point;\n\n#endif",
+					"tests": "#include \"ft_point.h\"\n#include <stdio.h>\n\nvoid set_point(t_point *point) {\n    point->x = 42;\n    point->y = 21;\n}\n\nint main(void) {\n    t_point point;\n    set_point(&point);\n    printf(\"x: %d, y: %d\\n\", point.x, point.y);\n    return 0;\n}"
 				},
 				{
 					"title": "ft_strs_to_tab",
-					"description": "Convert an array of strings to an array of structures containing each string, its copy, and length.\n\n**Structure:**\n```c\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n```\n**Function:**\n```c\nt_stock_str *ft_strs_to_tab(int ac, char **av);\n```",
-					"implementation": "#include <stdlib.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nchar *ft_strdup(char *src)\n{\n    int i = 0;\n    char *copy;\n    while (src[i]) i++;\n    copy = malloc(i + 1);\n    if (!copy) return NULL;\n    for (int j = 0; j <= i; j++)\n        copy[j] = src[j];\n    return copy;\n}\n\nint ft_strlen(char *str)\n{\n    int i = 0;\n    while (str[i]) i++;\n    return i;\n}\n\nt_stock_str *ft_strs_to_tab(int ac, char **av)\n{\n    t_stock_str *arr = malloc(sizeof(t_stock_str) * (ac + 1));\n    if (!arr) return NULL;\n    for (int i = 0; i < ac; i++) {\n        arr[i].size = ft_strlen(av[i]);\n        arr[i].str = av[i];\n        arr[i].copy = ft_strdup(av[i]);\n    }\n    arr[ac].str = NULL;\n    return arr;\n}",
-					"tests": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nt_stock_str *ft_strs_to_tab(int ac, char **av);\n\nint main(int argc, char **argv)\n{\n    t_stock_str *array = ft_strs_to_tab(argc - 1, argv + 1);\n    for (int i = 0; array[i].str != NULL; i++) {\n        printf(\"[%d] str: %s, copy: %s, size: %d\\n\", i, array[i].str, array[i].copy, array[i].size);\n        free(array[i].copy);\n    }\n    free(array);\n    return 0;\n}\n\n/*\nExample run:\n$ ./a.out hello 42 piscine\nExpected output:\n[0] str: hello, copy: hello, size: 5\n[1] str: 42, copy: 42, size: 2\n[2] str: piscine, copy: piscine, size: 7\n*/"
+					"description": "Convert an array of strings to an array of structures containing each string, its copy, and length.\n\n**Structure:**\n```c\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n```",
+					"implementation": "#include <stdlib.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nchar *ft_strdup(char *src) {\n    int i = 0;\n    while (src[i]) i++;\n    char *copy = malloc(i + 1);\n    if (!copy) return NULL;\n    for (int j = 0; j <= i; j++)\n        copy[j] = src[j];\n    return copy;\n}\n\nint ft_strlen(char *str) {\n    int i = 0;\n    while (str[i]) i++;\n    return i;\n}\n\nt_stock_str *ft_strs_to_tab(int ac, char **av) {\n    t_stock_str *arr = malloc(sizeof(t_stock_str) * (ac + 1));\n    if (!arr) return NULL;\n    for (int i = 0; i < ac; i++) {\n        arr[i].size = ft_strlen(av[i]);\n        arr[i].str = av[i];\n        arr[i].copy = ft_strdup(av[i]);\n    }\n    arr[ac].str = NULL;\n    return arr;\n}",
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nt_stock_str *ft_strs_to_tab(int ac, char **av);\n\nint main(int argc, char **argv) {\n    t_stock_str *array = ft_strs_to_tab(argc - 1, argv + 1);\n    for (int i = 0; array[i].str != NULL; i++) {\n        printf(\"[%d] str: %s, copy: %s, size: %d\\n\", i, array[i].str, array[i].copy, array[i].size);\n        free(array[i].copy);\n    }\n    free(array);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_show_tab",
+					"description": "Display the contents of the array of `t_stock_str` returned by `ft_strs_to_tab`.\nPrint each element's string, size, and copy, followed by a newline.\n\n**Function prototype:**\n```c\nvoid ft_show_tab(struct s_stock_str *par);\n```",
+					"implementation": "#include <unistd.h>\n\ntypedef struct s_stock_str {\n    int size;\n    char *str;\n    char *copy;\n} t_stock_str;\n\nvoid ft_putstr(char *str) {\n    while (*str) write(1, str++, 1);\n}\n\nvoid ft_putnbr(int nb) {\n    if (nb < 0) {\n        write(1, \"-\", 1);\n        nb = -nb;\n    }\n    if (nb > 9)\n        ft_putnbr(nb / 10);\n    char c = nb % 10 + '0';\n    write(1, &c, 1);\n}\n\nvoid ft_show_tab(t_stock_str *par) {\n    int i = 0;\n    while (par[i].str != NULL) {\n        ft_putstr(par[i].str);\n        write(1, \"\\n\", 1);\n        ft_putnbr(par[i].size);\n        write(1, \"\\n\", 1);\n        ft_putstr(par[i].copy);\n        write(1, \"\\n\", 1);\n        i++;\n    }\n}",
+					"tests": "#include \"ft_strs_to_tab.c\" // include your implementation\n\nint main(int argc, char **argv) {\n    t_stock_str *array = ft_strs_to_tab(argc - 1, argv + 1);\n    ft_show_tab(array);\n    for (int i = 0; array[i].str != NULL; i++)\n        free(array[i].copy);\n    free(array);\n    return 0;\n}"
 				}
 			]
 		},
@@ -527,10 +563,300 @@
 			"title": "C 09",
 			"exercises": [
 				{
+					"title": "libft",
+					"description": "Recreate a subset of the C standard library functions in your own library called `libft.a`. You must implement and compile several utility functions into a static library using `ar` and `ranlib`.",
+					"implementation": "/* Example: ft_strlen.c */\n#include <stddef.h>\n\nsize_t ft_strlen(const char *str) {\n    size_t i = 0;\n    while (str[i]) i++;\n    return i;\n}\n\n/* Create other files like ft_strcpy.c, ft_strcmp.c, ft_strdup.c, etc. */\n\n/* Compile into object files: gcc -c ft_strlen.c */\n/* Archive into libft.a: ar rcs libft.a ft_strlen.o */",
+					"tests": "#include <stdio.h>\nsize_t ft_strlen(const char *str);\n\nint main() {\n    printf(\"Length of 'Hello': %zu\\n\", ft_strlen(\"Hello\"));\n    return 0;\n}"
+				},
+				{
+					"title": "Makefile",
+					"description": "Create a Makefile that compiles your libft library automatically.\n\nIt must have the following rules:\n- `all`: builds the library.\n- `clean`: deletes object files.\n- `fclean`: deletes object files and the library.\n- `re`: rebuilds everything.\n\nUse variables for compiler and flags.",
+					"implementation": "# **************************************************************************** #\n#                                  MAKEFILE                                   #\n# **************************************************************************** #\n\nNAME = libft.a\nSRC = ft_strlen.c ft_strcpy.c ft_strcmp.c\nOBJ = $(SRC:.c=.o)\nCC = gcc\nCFLAGS = -Wall -Wextra -Werror\n\nall: $(NAME)\n\n$(NAME): $(OBJ)\n\tar rcs $(NAME) $(OBJ)\n\n%.o: %.c\n\t$(CC) $(CFLAGS) -c $< -o $@\n\nclean:\n\trm -f $(OBJ)\n\nfclean: clean\n\trm -f $(NAME)\n\nre: fclean all",
+					"tests": "Run the following in your shell:\n```sh\n$ make\n$ ar -t libft.a   # Should list object files\n$ make fclean\n$ ls              # libft.a should be gone\n```"
+				},
+				{
 					"title": "ft_split",
 					"description": "Split a string into an array of words separated by a given charset.\n\n**Function:**\n```c\nchar **ft_split(char *str, char *charset);\n```",
 					"implementation": "#include <stdlib.h>\n\nint is_sep(char c, char *charset)\n{\n    for (int i = 0; charset[i]; i++)\n        if (c == charset[i])\n            return 1;\n    return 0;\n}\n\nint count_words(char *str, char *charset)\n{\n    int count = 0;\n    int i = 0;\n    while (str[i]) {\n        while (str[i] && is_sep(str[i], charset)) i++;\n        if (str[i]) count++;\n        while (str[i] && !is_sep(str[i], charset)) i++;\n    }\n    return count;\n}\n\nchar *word_dup(char *start, int len)\n{\n    char *word = malloc(len + 1);\n    for (int i = 0; i < len; i++)\n        word[i] = start[i];\n    word[len] = '\\0';\n    return word;\n}\n\nchar **ft_split(char *str, char *charset)\n{\n    int i = 0, j = 0, k, word_len;\n    char **result = malloc((count_words(str, charset) + 1) * sizeof(char *));\n\n    while (str[i]) {\n        while (str[i] && is_sep(str[i], charset)) i++;\n        k = i;\n        while (str[i] && !is_sep(str[i], charset)) i++;\n        word_len = i - k;\n        if (word_len > 0)\n            result[j++] = word_dup(&str[k], word_len);\n    }\n    result[j] = NULL;\n    return result;\n}",
 					"tests": "#include <stdio.h>\n#include <stdlib.h>\n\nchar **ft_split(char *str, char *charset);\n\nint main() {\n    char **words = ft_split(\"hello world 42 school\", \" \");\n    for (int i = 0; words[i]; i++) {\n        printf(\"word[%d]: %s\\n\", i, words[i]);\n        free(words[i]);\n    }\n    free(words);\n    return 0;\n}\n\n/*\nExpected output:\nword[0]: hello\nword[1]: world\nword[2]: 42\nword[3]: school\n*/"
+				}
+			]
+		},
+		{
+			"day": 12,
+			"title": "C 10",
+			"exercises": [
+				{
+					"title": "display_file",
+					"description": "Write a program that displays the content of a file given as a command-line argument.\n\n- If there are too many or too few arguments, display an appropriate message.\n- Use only low-level file operations (`open`, `read`, `write`).",
+					"implementation": "#include <fcntl.h>\n#include <unistd.h>\n\nint main(int argc, char **argv) {\n    int fd;\n    char buffer[1024];\n    int bytes;\n\n    if (argc < 2) {\n        write(2, \"File name missing.\\n\", 20);\n        return 1;\n    }\n    if (argc > 2) {\n        write(2, \"Too many arguments.\\n\", 21);\n        return 1;\n    }\n    fd = open(argv[1], O_RDONLY);\n    if (fd < 0)\n        return 1;\n    while ((bytes = read(fd, buffer, 1024)) > 0)\n        write(1, buffer, bytes);\n    close(fd);\n    return 0;\n}",
+					"tests": "Create a file named `example.txt` with some content, then run:\n```sh\n$ ./display_file example.txt\nThis is a test file.\n```\n\n```sh\n$ ./display_file\nFile name missing.\n$ ./display_file file1 file2\nToo many arguments.\n```"
+				},
+				{
+					"title": "cat",
+					"description": "Reproduce the behavior of the Unix `cat` command.\n\n- If no argument is given, read from standard input.\n- Display the contents of each file passed as an argument.\n- If a file doesn't exist or can't be read, display an error to standard error.",
+					"implementation": "#include <fcntl.h>\n#include <unistd.h>\n\nvoid ft_cat(int fd) {\n    char buffer[1024];\n    int bytes;\n    while ((bytes = read(fd, buffer, 1024)) > 0)\n        write(1, buffer, bytes);\n}\n\nint main(int argc, char **argv) {\n    int i = 1;\n    int fd;\n\n    if (argc == 1)\n        ft_cat(0);\n    while (i < argc) {\n        fd = open(argv[i], O_RDONLY);\n        if (fd < 0)\n            write(2, \"Cannot read file.\\n\", 19);\n        else {\n            ft_cat(fd);\n            close(fd);\n        }\n        i++;\n    }\n    return 0;\n}",
+					"tests": "```sh\n$ ./cat file1.txt file2.txt\n<contents of both files>\n$ ./cat\n<type something and press Ctrl+D to end>\n```"
+				},
+				{
+					"title": "tail",
+					"description": "Reproduce the basic behavior of `tail -c N file`, which prints the last N bytes of a file.\n\n**Usage:**\n```sh\n./tail -c N filename\n```",
+					"implementation": "#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n\nint ft_atoi(char *str) {\n    int res = 0;\n    while (*str >= '0' && *str <= '9') {\n        res = res * 10 + (*str - '0');\n        str++;\n    }\n    return res;\n}\n\nint main(int argc, char **argv) {\n    int fd, size, start, bytes;\n    char buffer[4096];\n\n    if (argc != 4 || argv[1][0] != '-' || argv[1][1] != 'c') {\n        write(2, \"Usage: ./tail -c N file\\n\", 25);\n        return 1;\n    }\n    size = ft_atoi(argv[2]);\n    fd = open(argv[3], O_RDONLY);\n    if (fd < 0) {\n        write(2, \"Cannot read file.\\n\", 19);\n        return 1;\n    }\n    int len = 0;\n    while ((bytes = read(fd, buffer, 4096)) > 0)\n        len += bytes;\n    close(fd);\n\n    fd = open(argv[3], O_RDONLY);\n    if (len > size)\n        lseek(fd, len - size, SEEK_SET);\n    while ((bytes = read(fd, buffer, 4096)) > 0)\n        write(1, buffer, bytes);\n    close(fd);\n    return 0;\n}",
+					"tests": "Create a file:\n```sh\necho '1234567890abcdef' > test.txt\n./tail -c 6 test.txt\n```\nExpected output:\n```\ncdef\n```"
+				},
+				{
+					"title": "hexdump",
+					"description": "Implement a simplified version of the `hexdump` utility. Display the hexadecimal representation of the file contents.\n\n- Each line shows offset followed by 16 bytes in hex.\n- If two lines are identical, replace them with `*`.",
+					"implementation": "#include <fcntl.h>\n#include <unistd.h>\n#include <stdio.h>\n#include <string.h>\n\nvoid print_hex_line(unsigned char *buf, int len, int offset) {\n    printf(\"%08x  \", offset);\n    for (int i = 0; i < 16; i++) {\n        if (i < len)\n            printf(\"%02x \", buf[i]);\n        else\n            printf(\"   \");\n        if (i == 7)\n            printf(\" \");\n    }\n    printf(\" |\\n\");\n}\n\nint main(int argc, char **argv) {\n    if (argc != 2) return 1;\n    int fd = open(argv[1], O_RDONLY);\n    if (fd < 0) return 1;\n\n    unsigned char buf[16], prev[16];\n    int offset = 0, n, same = 0;\n\n    while ((n = read(fd, buf, 16)) > 0) {\n        if (same && memcmp(buf, prev, 16) == 0) {\n            printf(\"*\\n\");\n            lseek(fd, 16, SEEK_CUR);\n            offset += 16;\n            continue;\n        }\n        print_hex_line(buf, n, offset);\n        memcpy(prev, buf, 16);\n        same = 1;\n        offset += n;\n    }\n    close(fd);\n    return 0;\n}",
+					"tests": "Create a file with repeating lines:\n```sh\necho 'hellohellohellohello' > repeat.txt\n./hexdump repeat.txt\n```\nExpected output will show hexadecimal bytes, and repeated lines as `*`."
+				}
+			]
+		},
+		{
+			"day": 13,
+			"title": "C 11",
+			"exercises": [
+				{
+					"title": "ft_foreach",
+					"description": "Write a function that applies a function to each element of an integer array.",
+					"implementation": "void ft_foreach(int *tab, int length, void (*f)(int)) {\n    for (int i = 0; i < length; i++)\n        f(tab[i]);\n}",
+					"tests": "#include <stdio.h>\n\nvoid ft_foreach(int *tab, int length, void (*f)(int));\nvoid print_num(int n) {\n    printf(\"%d\\n\", n);\n}\n\nint main() {\n    int arr[] = {1, 2, 3, 4};\n    ft_foreach(arr, 4, print_num);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_map",
+					"description": "Apply a function to each element of an array and return a new array of results.",
+					"implementation": "#include <stdlib.h>\n\nint *ft_map(int *tab, int length, int (*f)(int)) {\n    int *res = malloc(sizeof(int) * length);\n    if (!res) return NULL;\n    for (int i = 0; i < length; i++)\n        res[i] = f(tab[i]);\n    return res;\n}",
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\n\nint *ft_map(int *tab, int length, int (*f)(int));\nint square(int x) { return x * x; }\n\nint main() {\n    int arr[] = {1, 2, 3};\n    int *res = ft_map(arr, 3, square);\n    for (int i = 0; i < 3; i++)\n        printf(\"%d\\n\", res[i]);\n    free(res);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_any",
+					"description": "Return 1 if the function returns true for at least one element of the array.",
+					"implementation": "int ft_any(char **tab, int (*f)(char *)) {\n    for (int i = 0; tab[i]; i++) {\n        if (f(tab[i]))\n            return 1;\n    }\n    return 0;\n}",
+					"tests": "#include <stdio.h>\n\nint ft_any(char **tab, int (*f)(char *));\nint has_digit(char *str) {\n    while (*str) {\n        if (*str >= '0' && *str <= '9') return 1;\n        str++;\n    }\n    return 0;\n}\n\nint main() {\n    char *arr[] = {\"abc\", \"def1\", \"ghi\", NULL};\n    printf(\"%d\\n\", ft_any(arr, has_digit)); // Expected: 1\n    return 0;\n}"
+				},
+				{
+					"title": "ft_count_if",
+					"description": "Return the number of elements for which the function returns true.",
+					"implementation": "int ft_count_if(char **tab, int (*f)(char *)) {\n    int count = 0;\n    for (int i = 0; tab[i]; i++) {\n        if (f(tab[i]))\n            count++;\n    }\n    return count;\n}",
+					"tests": "#include <stdio.h>\n\nint ft_count_if(char **tab, int (*f)(char *));\nint starts_with_a(char *str) {\n    return str[0] == 'a';\n}\n\nint main() {\n    char *arr[] = {\"apple\", \"banana\", \"avocado\", NULL};\n    printf(\"%d\\n\", ft_count_if(arr, starts_with_a)); // Expected: 2\n    return 0;\n}"
+				},
+				{
+					"title": "ft_is_sort",
+					"description": "Check if an array is sorted according to a comparison function.",
+					"implementation": "int ft_is_sort(int *tab, int length, int (*f)(int, int)) {\n    int asc = 1, desc = 1;\n    for (int i = 0; i < length - 1; i++) {\n        if (f(tab[i], tab[i + 1]) > 0) asc = 0;\n        if (f(tab[i], tab[i + 1]) < 0) desc = 0;\n    }\n    return asc || desc;\n}",
+					"tests": "#include <stdio.h>\n\nint ascending(int a, int b) { return a - b; }\n\nint main() {\n    int arr1[] = {1, 2, 3};\n    int arr2[] = {3, 2, 1};\n    int arr3[] = {1, 3, 2};\n    printf(\"%d\\n\", ft_is_sort(arr1, 3, ascending)); // 1\n    printf(\"%d\\n\", ft_is_sort(arr2, 3, ascending)); // 1\n    printf(\"%d\\n\", ft_is_sort(arr3, 3, ascending)); // 0\n    return 0;\n}"
+				},
+				{
+					"title": "do-op",
+					"description": "Create a program that takes two integers and an operator (+ - * / %) as arguments and performs the operation.",
+					"implementation": "#include <stdio.h>\n#include <stdlib.h>\n\nint add(int a, int b) { return a + b; }\nint sub(int a, int b) { return a - b; }\nint mul(int a, int b) { return a * b; }\nint div(int a, int b) { return b != 0 ? a / b : 0; }\nint mod(int a, int b) { return b != 0 ? a % b : 0; }\n\nint main(int argc, char **argv) {\n    if (argc != 4) return 1;\n    int a = atoi(argv[1]);\n    int b = atoi(argv[3]);\n    char op = argv[2][0];\n\n    int (*operations[5])(int, int) = {add, sub, mul, div, mod};\n    char symbols[5] = {'+', '-', '*', '/', '%'};\n\n    for (int i = 0; i < 5; i++) {\n        if (op == symbols[i]) {\n            printf(\"%d\\n\", operations[i](a, b));\n            return 0;\n        }\n    }\n    printf(\"0\\n\");\n    return 0;\n}",
+					"tests": "# Compile and run:\n$ ./do-op 5 + 3\n8\n$ ./do-op 5 / 0\n0"
+				},
+				{
+					"title": "ft_sort_string_tab",
+					"description": "Sort an array of strings in ascending ASCII order.",
+					"implementation": "#include <string.h>\n\nvoid ft_sort_string_tab(char **tab) {\n    int i = 0;\n    char *tmp;\n    while (tab[i]) {\n        for (int j = i + 1; tab[j]; j++) {\n            if (strcmp(tab[i], tab[j]) > 0) {\n                tmp = tab[i];\n                tab[i] = tab[j];\n                tab[j] = tmp;\n            }\n        }\n        i++;\n    }\n}",
+					"tests": "#include <stdio.h>\n\nvoid ft_sort_string_tab(char **tab);\n\nint main() {\n    char *arr[] = {\"banana\", \"apple\", \"cherry\", NULL};\n    ft_sort_string_tab(arr);\n    for (int i = 0; arr[i]; i++)\n        printf(\"%s\\n\", arr[i]);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_advanced_sort_string_tab",
+					"description": "Sort an array of strings using a custom comparison function.",
+					"implementation": "void ft_advanced_sort_string_tab(char **tab, int (*cmp)(char *, char *)) {\n    int i = 0;\n    char *tmp;\n    while (tab[i]) {\n        for (int j = i + 1; tab[j]; j++) {\n            if (cmp(tab[i], tab[j]) > 0) {\n                tmp = tab[i];\n                tab[i] = tab[j];\n                tab[j] = tmp;\n            }\n        }\n        i++;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n\nvoid ft_advanced_sort_string_tab(char **tab, int (*cmp)(char *, char *));\n\nint main() {\n    char *arr[] = {\"banana\", \"apple\", \"cherry\", NULL};\n    ft_advanced_sort_string_tab(arr, strcmp);\n    for (int i = 0; arr[i]; i++)\n        printf(\"%s\\n\", arr[i]);\n    return 0;\n}"
+				}
+			]
+		},
+		{
+			"day": 14,
+			"title": "C 12",
+			"exercises": [
+				{
+					"title": "ft_create_elem",
+					"description": "Create a function that creates a new list element.",
+					"prototype": "t_list *ft_create_elem(void *data);",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nt_list *ft_create_elem(void *data)\n{\n    t_list *new_elem;\n\n    new_elem = (t_list *)malloc(sizeof(t_list));\n    if (!new_elem)\n        return (NULL);\n    new_elem->data = data;\n    new_elem->next = NULL;\n    return (new_elem);\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    int value = 42;\n    t_list *elem = ft_create_elem(&value);\n    if (elem)\n        printf(\"Element created with data: %d\\n\", *(int *)elem->data);\n    else\n        printf(\"Failed to create element.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_push_front",
+					"description": "Add a new element at the beginning of the list.",
+					"prototype": "void ft_list_push_front(t_list **begin_list, void *data);",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nvoid ft_list_push_front(t_list **begin_list, void *data)\n{\n    t_list *new_elem;\n\n    new_elem = (t_list *)malloc(sizeof(t_list));\n    if (!new_elem)\n        return;\n    new_elem->data = data;\n    new_elem->next = *begin_list;\n    *begin_list = new_elem;\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2;\n\n    ft_list_push_front(&list, &a);\n    ft_list_push_front(&list, &b);\n\n    printf(\"First element: %d\\n\", *(int *)list->data);\n    printf(\"Second element: %d\\n\", *(int *)list->next->data);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_size",
+					"description": "Return the number of elements in the list.",
+					"prototype": "int ft_list_size(t_list *begin_list);",
+					"implementation": "#include \"ft_list.h\"\n\nint ft_list_size(t_list *begin_list)\n{\n    int count = 0;\n\n    while (begin_list)\n    {\n        count++;\n        begin_list = begin_list->next;\n    }\n    return (count);\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3;\n\n    ft_list_push_front(&list, &a);\n    ft_list_push_front(&list, &b);\n    ft_list_push_front(&list, &c);\n\n    printf(\"List size: %d\\n\", ft_list_size(list));\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_last",
+					"description": "Return the last element of the list.",
+					"prototype": "t_list *ft_list_last(t_list *begin_list);",
+					"implementation": "#include \"ft_list.h\"\n\nt_list *ft_list_last(t_list *begin_list)\n{\n    if (!begin_list)\n        return (NULL);\n    while (begin_list->next)\n        begin_list = begin_list->next;\n    return (begin_list);\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3;\n\n    ft_list_push_front(&list, &a);\n    ft_list_push_front(&list, &b);\n    ft_list_push_front(&list, &c);\n\n    t_list *last = ft_list_last(list);\n    if (last)\n        printf(\"Last element: %d\\n\", *(int *)last->data);\n    else\n        printf(\"List is empty.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_push_back",
+					"description": "Add a new element at the end of the list.",
+					"prototype": "void ft_list_push_back(t_list **begin_list, void *data);",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nvoid ft_list_push_back(t_list **begin_list, void *data)\n{\n    t_list *new_elem;\n    t_list *current;\n\n    new_elem = (t_list *)malloc(sizeof(t_list));\n    if (!new_elem)\n        return;\n    new_elem->data = data;\n    new_elem->next = NULL;\n\n    if (!*begin_list)\n    {\n        *begin_list = new_elem;\n        return;\n    }\n    current = *begin_list;\n    while (current->next)\n        current = current->next;\n    current->next = new_elem;\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3;\n\n    ft_list_push_back(&list, &a);\n    ft_list_push_back(&list, &b);\n    ft_list_push_back(&list, &c);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"Element: %d\\n\", *(int *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_push_strs",
+					"description": "Create a list from an array of strings.",
+					"prototype": "t_list *ft_list_push_strs(int size, char **strs);",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nt_list *ft_list_push_strs(int size, char **strs)\n{\n    t_list *list = NULL;\n    int i;\n\n    for (i = 0; i < size; i++)\n        ft_list_push_front(&list, strs[i]);\n    return (list);\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    char *strs[] = {\"one\", \"two\", \"three\"};\n    t_list *list = ft_list_push_strs(3, strs);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"Element: %s\\n\", (char *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_clear",
+					"description": "Free all elements of the list using a free function.",
+					"prototype": "void ft_list_clear(t_list *begin_list, void (*free_fct)(void *));",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nvoid ft_list_clear(t_list *begin_list, void (*free_fct)(void *))\n{\n    t_list *temp;\n\n    while (begin_list)\n    {\n        temp = begin_list->next;\n        if (free_fct)\n            free_fct(begin_list->data);\n        free(begin_list);\n        begin_list = temp;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\n#include \"ft_list.h\"\n\nvoid free_data(void *data)\n{\n    free(data);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    char *data1 = strdup(\"data1\");\n    char *data2 = strdup(\"data2\");\n\n    ft_list_push_front(&list, data1);\n    ft_list_push_front(&list, data2);\n\n    ft_list_clear(list, free_data);\n    printf(\"List cleared.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_at",
+					"description": "Return the nth element of the list.",
+					"prototype": "t_list *ft_list_at(t_list *begin_list, unsigned int nbr);",
+					"implementation": "#include \"ft_list.h\"\n\nt_list *ft_list_at(t_list *begin_list, unsigned int nbr)\n{\n    unsigned int i = 0;\n\n    while (begin_list)\n    {\n        if (i == nbr)\n            return (begin_list);\n        begin_list = begin_list->next;\n        i++;\n    }\n    return (NULL);\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3;\n\n    ft_list_push_back(&list, &a);\n    ft_list_push_back(&list, &b);\n    ft_list_push_back(&list, &c);\n\n    t_list *elem = ft_list_at(list, 1);\n    if (elem)\n        printf(\"Element at index 1: %d\\n\", *(int *)elem->data);\n    else\n        printf(\"Element not found.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_reverse",
+					"description": "Reverse the order of elements in the list.",
+					"prototype": "void ft_list_reverse(t_list **begin_list);",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_list_reverse(t_list **begin_list)\n{\n    t_list *prev = NULL;\n    t_list *current = *begin_list;\n    t_list *next;\n\n    while (current)\n    {\n        next = current->next;\n        current->next = prev;\n        prev = current;\n        current = next;\n    }\n    *begin_list = prev;\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3;\n\n    ft_list_push_back(&list, &a);\n    ft_list_push_back(&list, &b);\n    ft_list_push_back(&list, &c);\n\n    ft_list_reverse(&list);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"Element: %d\\n\", *(int *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_foreach",
+					"description": "Apply a function to each element of the list.",
+					"prototype": "void ft_list_foreach(t_list *begin_list, void (*f)(void *));",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_list_foreach(t_list *begin_list, void (*f)(void *))\n{\n    while (begin_list)\n    {\n        f(begin_list->data);\n        begin_list = begin_list->next;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nvoid print_data(void *data)\n{\n    printf(\"%d\\n\", *(int *)data);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3;\n\n    ft_list_push_back(&list, &a);\n    ft_list_push_back(&list, &b);\n    ft_list_push_back(&list, &c);\n\n    ft_list_foreach(list, print_data);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_foreach_if",
+					"description": "Apply a function to elements of the list that match a condition.",
+					"prototype": "void ft_list_foreach_if(t_list *begin_list, void (*f)(void *), void *data_ref, int (*cmp)());",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_list_foreach_if(t_list *begin_list, void (*f)(void *), void *data_ref, int (*cmp)())\n{\n    while (begin_list)\n    {\n        if (cmp(begin_list->data, data_ref) == 0)\n            f(begin_list->data);\n        begin_list = begin_list->next;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"ft_list.h\"\n\nvoid print_str(void *data)\n{\n    printf(\"%s\\n\", (char *)data);\n}\n\nint cmp_str(void *a, void *b)\n{\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    char *s1 = \"hello\";\n    char *s2 = \"world\";\n    char *s3 = \"hello\";\n\n    ft_list_push_back(&list, s1);\n    ft_list_push_back(&list, s2);\n    ft_list_push_back(&list, s3);\n\n    ft_list_foreach_if(list, print_str, \"hello\", cmp_str);\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_find",
+					"description": "Find the first element in the list matching data_ref using cmp.",
+					"prototype": "t_list *ft_list_find(t_list *begin_list, void *data_ref, int (*cmp)());",
+					"implementation": "#include \"ft_list.h\"\n\nt_list *ft_list_find(t_list *begin_list, void *data_ref, int (*cmp)())\n{\n    while (begin_list)\n    {\n        if (cmp(begin_list->data, data_ref) == 0)\n            return begin_list;\n        begin_list = begin_list->next;\n    }\n    return NULL;\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"ft_list.h\"\n\nint cmp_str(void *a, void *b)\n{\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    char *s1 = \"apple\";\n    char *s2 = \"banana\";\n    char *s3 = \"cherry\";\n\n    ft_list_push_back(&list, s1);\n    ft_list_push_back(&list, s2);\n    ft_list_push_back(&list, s3);\n\n    t_list *found = ft_list_find(list, \"banana\", cmp_str);\n    if (found)\n        printf(\"Found: %s\\n\", (char *)found->data);\n    else\n        printf(\"Not found.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_remove_if",
+					"description": "Remove elements from the list that match data_ref using cmp.",
+					"prototype": "void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nvoid ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *))\n{\n    t_list *current = *begin_list;\n    t_list *prev = NULL;\n    t_list *temp;\n\n    while (current)\n    {\n        if (cmp(current->data, data_ref) == 0)\n        {\n            temp = current;\n            if (prev)\n                prev->next = current->next;\n            else\n                *begin_list = current->next;\n            current = current->next;\n            free_fct(temp->data);\n            free(temp);\n        }\n        else\n        {\n            prev = current;\n            current = current->next;\n        }\n    }\n}",
+					"tests": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include \"ft_list.h\"\n\nvoid free_str(void *data)\n{\n    free(data);\n}\n\nint cmp_str(void *a, void *b)\n{\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    char *s1 = strdup(\"apple\");\n    char *s2 = strdup(\"banana\");\n    char *s3 = strdup(\"apple\");\n\n    ft_list_push_back(&list, s1);\n    ft_list_push_back(&list, s2);\n    ft_list_push_back(&list, s3);\n\n    ft_list_remove_if(&list, \"apple\", cmp_str, free_str);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"Element: %s\\n\", (char *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_merge",
+					"description": "Merge two lists by appending the second to the first.",
+					"prototype": "void ft_list_merge(t_list **begin_list1, t_list *begin_list2);",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_list_merge(t_list **begin_list1, t_list *begin_list2)\n{\n    if (!*begin_list1)\n    {\n        *begin_list1 = begin_list2;\n        return;\n    }\n    t_list *current = *begin_list1;\n    while (current->next)\n        current = current->next;\n    current->next = begin_list2;\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list1 = NULL;\n    t_list *list2 = NULL;\n    int a = 1, b = 2, c = 3, d = 4;\n\n    ft_list_push_back(&list1, &a);\n    ft_list_push_back(&list1, &b);\n    ft_list_push_back(&list2, &c);\n    ft_list_push_back(&list2, &d);\n\n    ft_list_merge(&list1, list2);\n\n    t_list *current = list1;\n    while (current)\n    {\n        printf(\"Element: %d\\n\", *(int *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_sort",
+					"description": "Sort the list in ascending order using cmp.",
+					"prototype": "void ft_list_sort(t_list **begin_list, int (*cmp)());",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_list_sort(t_list **begin_list, int (*cmp)())\n{\n    if (!begin_list || !*begin_list)\n        return;\n    t_list *i = *begin_list;\n    while (i)\n    {\n        t_list *j = i->next;\n        while (j)\n        {\n            if (cmp(i->data, j->data) > 0)\n            {\n                void *temp = i->data;\n                i->data = j->data;\n                j->data = temp;\n            }\n            j = j->next;\n        }\n        i = i->next;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"ft_list.h\"\n\nint cmp_str(void *a, void *b)\n{\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    ft_list_push_back(&list, \"banana\");\n    ft_list_push_back(&list, \"apple\");\n    ft_list_push_back(&list, \"cherry\");\n\n    ft_list_sort(&list, cmp_str);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"%s\\n\", (char *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_list_reverse_fun",
+					"description": "Reverse the list by swapping data (not pointers).",
+					"prototype": "void ft_list_reverse_fun(t_list *begin_list);",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_list_reverse_fun(t_list *begin_list)\n{\n    if (!begin_list)\n        return;\n\n    t_list *i = begin_list;\n    int size = 0;\n    while (i)\n    {\n        size++;\n        i = i->next;\n    }\n\n    t_list *arr[size];\n    i = begin_list;\n    for (int j = 0; j < size; j++)\n    {\n        arr[j] = i;\n        i = i->next;\n    }\n\n    for (int j = 0; j < size / 2; j++)\n    {\n        void *tmp = arr[j]->data;\n        arr[j]->data = arr[size - j - 1]->data;\n        arr[size - j - 1]->data = tmp;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include \"ft_list.h\"\n\nint main()\n{\n    t_list *list = NULL;\n    int a = 1, b = 2, c = 3, d = 4;\n    ft_list_push_back(&list, &a);\n    ft_list_push_back(&list, &b);\n    ft_list_push_back(&list, &c);\n    ft_list_push_back(&list, &d);\n\n    ft_list_reverse_fun(list);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"%d\\n\", *(int *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_sorted_list_insert",
+					"description": "Insert an element into a sorted list, preserving the sort order.",
+					"prototype": "void ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)());",
+					"implementation": "#include <stdlib.h>\n#include \"ft_list.h\"\n\nvoid ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)())\n{\n    t_list *new_elem = malloc(sizeof(t_list));\n    if (!new_elem)\n        return;\n    new_elem->data = data;\n    new_elem->next = NULL;\n\n    if (!*begin_list || cmp(data, (*begin_list)->data) < 0)\n    {\n        new_elem->next = *begin_list;\n        *begin_list = new_elem;\n        return;\n    }\n\n    t_list *current = *begin_list;\n    while (current->next && cmp(data, current->next->data) > 0)\n        current = current->next;\n\n    new_elem->next = current->next;\n    current->next = new_elem;\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"ft_list.h\"\n\nint cmp_str(void *a, void *b)\n{\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_list *list = NULL;\n    ft_sorted_list_insert(&list, \"banana\", cmp_str);\n    ft_sorted_list_insert(&list, \"apple\", cmp_str);\n    ft_sorted_list_insert(&list, \"cherry\", cmp_str);\n\n    t_list *current = list;\n    while (current)\n    {\n        printf(\"%s\\n\", (char *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				},
+				{
+					"title": "ft_sorted_list_merge",
+					"description": "Merge two sorted lists into one sorted list.",
+					"prototype": "void ft_sorted_list_merge(t_list **begin_list1, t_list *begin_list2, int (*cmp)());",
+					"implementation": "#include \"ft_list.h\"\n\nvoid ft_sorted_list_merge(t_list **begin_list1, t_list *begin_list2, int (*cmp)())\n{\n    t_list *current = begin_list2;\n    while (current)\n    {\n        t_list *next = current->next;\n        ft_sorted_list_insert(begin_list1, current->data, cmp);\n        current = next;\n    }\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"ft_list.h\"\n\nint cmp_str(void *a, void *b)\n{\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_list *list1 = NULL;\n    t_list *list2 = NULL;\n\n    ft_sorted_list_insert(&list1, \"apple\", cmp_str);\n    ft_sorted_list_insert(&list1, \"orange\", cmp_str);\n    ft_sorted_list_insert(&list2, \"banana\", cmp_str);\n    ft_sorted_list_insert(&list2, \"grape\", cmp_str);\n\n    ft_sorted_list_merge(&list1, list2, cmp_str);\n\n    t_list *current = list1;\n    while (current)\n    {\n        printf(\"%s\\n\", (char *)current->data);\n        current = current->next;\n    }\n    return 0;\n}"
+				}
+			]
+		},
+		{
+			"day": 15,
+			"title": "C 13",
+			"exercises": [
+				{
+					"title": "btree_create_node",
+					"description": "Create a new binary tree node.",
+					"prototype": "t_btree *btree_create_node(void *item);",
+					"implementation": "#include <stdlib.h>\n#include \"btree.h\"\n\nt_btree *btree_create_node(void *item)\n{\n    t_btree *node = malloc(sizeof(t_btree));\n    if (!node)\n        return NULL;\n    node->item = item;\n    node->left = NULL;\n    node->right = NULL;\n    return node;\n}",
+					"tests": "#include <stdio.h>\n#include \"btree.h\"\n\nint main()\n{\n    int data = 42;\n    t_btree *root = btree_create_node(&data);\n    if (root)\n        printf(\"Node created with item: %d\\n\", *(int *)root->item);\n    else\n        printf(\"Failed to create node.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "btree_apply_prefix",
+					"description": "Apply a function to each item in prefix order.",
+					"prototype": "void btree_apply_prefix(t_btree *root, void (*applyf)(void *));",
+					"implementation": "#include \"btree.h\"\n\nvoid btree_apply_prefix(t_btree *root, void (*applyf)(void *))\n{\n    if (!root || !applyf)\n        return;\n    applyf(root->item);\n    btree_apply_prefix(root->left, applyf);\n    btree_apply_prefix(root->right, applyf);\n}",
+					"tests": "#include <stdio.h>\n#include \"btree.h\"\n\nvoid print_item(void *item) {\n    printf(\"%d \", *(int *)item);\n}\n\nint main()\n{\n    int a = 1, b = 2, c = 3;\n    t_btree *root = btree_create_node(&a);\n    root->left = btree_create_node(&b);\n    root->right = btree_create_node(&c);\n\n    btree_apply_prefix(root, print_item);\n    return 0;\n}"
+				},
+				{
+					"title": "btree_apply_infix",
+					"description": "Apply a function to each item in infix (in-order) order.",
+					"prototype": "void btree_apply_infix(t_btree *root, void (*applyf)(void *));",
+					"implementation": "#include \"btree.h\"\n\nvoid btree_apply_infix(t_btree *root, void (*applyf)(void *))\n{\n    if (!root || !applyf)\n        return;\n    btree_apply_infix(root->left, applyf);\n    applyf(root->item);\n    btree_apply_infix(root->right, applyf);\n}",
+					"tests": "#include <stdio.h>\n#include \"btree.h\"\n\nvoid print_item(void *item) {\n    printf(\"%d \", *(int *)item);\n}\n\nint main()\n{\n    int a = 1, b = 2, c = 3;\n    t_btree *root = btree_create_node(&a);\n    root->left = btree_create_node(&b);\n    root->right = btree_create_node(&c);\n\n    btree_apply_infix(root, print_item);\n    return 0;\n}"
+				},
+				{
+					"title": "btree_apply_suffix",
+					"description": "Apply a function to each item in suffix (post-order) order.",
+					"prototype": "void btree_apply_suffix(t_btree *root, void (*applyf)(void *));",
+					"implementation": "#include \"btree.h\"\n\nvoid btree_apply_suffix(t_btree *root, void (*applyf)(void *))\n{\n    if (!root || !applyf)\n        return;\n    btree_apply_suffix(root->left, applyf);\n    btree_apply_suffix(root->right, applyf);\n    applyf(root->item);\n}",
+					"tests": "#include <stdio.h>\n#include \"btree.h\"\n\nvoid print_item(void *item) {\n    printf(\"%d \", *(int *)item);\n}\n\nint main()\n{\n    int a = 1, b = 2, c = 3;\n    t_btree *root = btree_create_node(&a);\n    root->left = btree_create_node(&b);\n    root->right = btree_create_node(&c);\n\n    btree_apply_suffix(root, print_item);\n    return 0;\n}"
+				},
+				{
+					"title": "btree_insert_data",
+					"description": "Insert a new item into the binary tree using cmpf.",
+					"prototype": "void btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *));",
+					"implementation": "#include <stdlib.h>\n#include \"btree.h\"\n\nvoid btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *))\n{\n    if (!*root)\n    {\n        *root = btree_create_node(item);\n        return;\n    }\n    if (cmpf(item, (*root)->item) < 0)\n        btree_insert_data(&((*root)->left), item, cmpf);\n    else\n        btree_insert_data(&((*root)->right), item, cmpf);\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"btree.h\"\n\nint cmp_str(void *a, void *b) {\n    return strcmp((char *)a, (char *)b);\n}\n\nvoid print_str(void *item) {\n    printf(\"%s \", (char *)item);\n}\n\nint main()\n{\n    t_btree *root = NULL;\n    btree_insert_data(&root, \"banana\", cmp_str);\n    btree_insert_data(&root, \"apple\", cmp_str);\n    btree_insert_data(&root, \"cherry\", cmp_str);\n\n    btree_apply_infix(root, print_str);\n    return 0;\n}"
+				},
+				{
+					"title": "btree_search_item",
+					"description": "Search for an item in the binary tree.",
+					"prototype": "void *btree_search_item(t_btree *root, void *data_ref, int (*cmpf)(void *, void *));",
+					"implementation": "#include \"btree.h\"\n\nvoid *btree_search_item(t_btree *root, void *data_ref, int (*cmpf)(void *, void *))\n{\n    if (!root)\n        return NULL;\n    int cmp = cmpf(data_ref, root->item);\n    if (cmp == 0)\n        return root->item;\n    else if (cmp < 0)\n        return btree_search_item(root->left, data_ref, cmpf);\n    else\n        return btree_search_item(root->right, data_ref, cmpf);\n}",
+					"tests": "#include <stdio.h>\n#include <string.h>\n#include \"btree.h\"\n\nint cmp_str(void *a, void *b) {\n    return strcmp((char *)a, (char *)b);\n}\n\nint main()\n{\n    t_btree *root = NULL;\n    btree_insert_data(&root, \"banana\", cmp_str);\n    btree_insert_data(&root, \"apple\", cmp_str);\n    btree_insert_data(&root, \"cherry\", cmp_str);\n\n    char *search = \"apple\";\n    char *found = btree_search_item(root, search, cmp_str);\n    if (found)\n        printf(\"Found: %s\\n\", found);\n    else\n        printf(\"Item not found.\\n\");\n    return 0;\n}"
+				},
+				{
+					"title": "btree_level_count",
+					"description": "Return the number of levels in the binary tree.",
+					"prototype": "int btree_level_count(t_btree *root);",
+					"implementation": "#include \"btree.h\"\n\nint max(int a, int b) {\n    return (a > b) ? a : b;\n}\n\nint btree_level_count(t_btree *root)\n{\n    if (!root)\n        return 0;\n    return 1 + max(btree_level_count(root->left), btree_level_count(root->right));\n}",
+					"tests": "#include <stdio.h>\n#include \"btree.h\"\n\nint main()\n{\n    t_btree *root = NULL;\n    int a = 1, b = 2, c = 3, d = 4;\n    root = btree_create_node(&a);\n    root->left = btree_create_node(&b);\n    root->left->left = btree_create_node(&c);\n    root->right = btree_create_node(&d);\n\n    printf(\"Level count: %d\\n\", btree_level_count(root));\n    return 0;\n}"
+				},
+				{
+					"title": "btree_apply_by_level",
+					"description": "Apply a function to each level of the tree.",
+					"prototype": "void btree_apply_by_level(t_btree *root, void (*applyf)(void *item, int current_level, int is_first_elem));",
+					"implementation": "#include <stdlib.h>\n#include \"btree.h\"\n\nvoid btree_apply_level(t_btree *root, int level, int *first, void (*applyf)(void *, int, int))\n{\n    if (!root)\n        return;\n    if (level == 0)\n        applyf(root->item, level, (*first)-- == 0);\n    else\n    {\n        btree_apply_level(root->left, level - 1, first, applyf);\n        btree_apply_level(root->right, level - 1, first, applyf);\n    }\n}\n\nint btree_level_count(t_btree *root);\n\nvoid btree_apply_by_level(t_btree *root, void (*applyf)(void *, int, int))\n{\n    int levels = btree_level_count(root);\n    for (int i = 0; i < levels; i++)\n    {\n        int first = 0;\n        btree_apply_level(root, i, &first, applyf);\n    }\n}",
+					"tests": "#include <stdio.h>\n#include \"btree.h\"\n\nvoid print_node(void *item, int level, int is_first) {\n    printf(\"%s at level %d%s\\n\", (char *)item, level, is_first ? \" (first)\" : \"\");\n}\n\nint main()\n{\n    t_btree *root = NULL;\n    btree_insert_data(&root, \"banana\", (int (*)(void *, void *))strcmp);\n    btree_insert_data(&root, \"apple\", (int (*)(void *, void *))strcmp);\n    btree_insert_data(&root, \"cherry\", (int (*)(void *, void *))strcmp);\n\n    btree_apply_by_level(root, print_node);\n    return 0;\n}"
 				}
 			]
 		}

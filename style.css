@@ -247,6 +247,13 @@ a:focus {
 	color: #fff;
 }
 
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #555 #222;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
 	width: 8px;
 	height: 8px;
