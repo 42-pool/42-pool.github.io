@@ -136,7 +136,7 @@ window.addEventListener('hashchange', () => {
 document.getElementById('search').addEventListener(
 	'input',
 	debounce(function (e) {
-		const query = e.target.value.toLowerCase();
+		const query = e.target.value.toLowerCase().trim();
 
 		const allDays = document.querySelectorAll('.day');
 		const allTOCItems = document.querySelectorAll('#toc > ul > li');
